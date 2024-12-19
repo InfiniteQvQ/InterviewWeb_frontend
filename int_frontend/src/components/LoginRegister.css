@@ -1,0 +1,32 @@
+.auth-container {
+    width: 300px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .auth-container input {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .auth-container button {
+    padding: 8px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .auth-container button:hover {
+    background-color: #45a049;
+  }
+  
+  .toggle-link {
+    color: blue;
+    cursor: pointer;
+    text-align: center;
+  }
+  

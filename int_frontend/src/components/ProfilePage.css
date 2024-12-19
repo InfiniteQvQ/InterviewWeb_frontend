@@ -1,0 +1,19 @@
+.profile-container {
+    margin: 50px auto;
+    text-align: center;
+  }
+  
+  .profile-container button {
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-container button:hover {
+    background-color: #d32f2f;
+  }
+  

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './LoginRegister.css';
 import API_BASE_URL from '../config/apiConfig';
 
-const LoginRegister = () => {
+const LoginRegister = ({ onLogin }) => {
   const [isLogin, setIsLogin] = useState(true); // true: 登录模式, false: 注册模式
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -33,18 +33,19 @@ const LoginRegister = () => {
         body: JSON.stringify(requestBody),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+      if (response.ok && data.success) {
         if (isLogin) {
-          const user = await response.json();
+          const user = data.user; // 确认从 response.data.user 中提取用户信息
           sessionStorage.setItem('user', JSON.stringify(user));
+          if (onLogin) onLogin(user); // 调用 onLogin 回调，将用户数据传递出去
           navigate('/profile'); // 跳转到个人中心页面
         } else {
           alert(successMessage);
           setIsLogin(true); // 注册成功后切换回登录模式
         }
       } else {
-        const errorData = await response.json();
-        alert(errorData.message || errorMessage);
+        alert(data.message || errorMessage);
       }
     } catch (error) {
       console.error('请求失败:', error);

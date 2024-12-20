@@ -1,17 +1,35 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginRegister from './components/LoginRegister';
-import ProfilePage from './components/ProfilePage';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./nav/Navbar";
+import HomePage from "./aiInterview/aiInterview";
+import CandidatesPage from "./candidates/Candidates";
+import LoginRegister from "./components/LoginRegister";
 
-function App() {
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const handleLogin = (user) => {
+    setIsLoggedIn(true);
+    setUsername(user.username);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername("");
+    sessionStorage.removeItem("user");
+  };
+
   return (
     <Router>
+      <Navbar isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<LoginRegister />} /> {/* 登录/注册页面 */}
-        <Route path="/profile" element={<ProfilePage />} /> {/* 个人中心页面 */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/candidates" element={<CandidatesPage />} />
+        <Route path="/login" element={<LoginRegister onLogin={handleLogin} />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

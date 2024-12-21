@@ -1,0 +1,11 @@
+.company-page {
+    display: flex;
+}
+  
+.company-content {
+    flex-grow: 1; 
+    margin-left: 8vw; 
+    padding: 20px;
+    box-sizing: border-box; 
+}
+  

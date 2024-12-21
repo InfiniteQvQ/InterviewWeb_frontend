@@ -1,0 +1,439 @@
+/****************************************/
+/** 1) 原有两列候选人列表的样式不变 **/
+/****************************************/
+.candidate-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+    gap: 16px; /* 网格间隔 */
+  }
+  
+  .candidate-card {
+    display: grid;
+    grid-template-rows: auto auto auto auto; /* 四行布局 */
+    grid-template-columns: auto 1fr auto; /* 图片、姓名、右侧按钮 */
+    gap: 8px; /* 卡片内部间隔 */
+    padding: 16px; /* 内边距 */
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .candidate-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px); /* 悬停时位移 */
+  }
+  
+  /* 第一行：左侧头像 */
+  .candidate-photo {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    display: flex;
+    align-items: center;
+  }
+  
+  .photo {
+    width: 45px;
+    height: 45px;
+  }
+  
+  /* 第一行：中间的候选人名字 */
+  .candidate-name {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    align-self: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+  }
+  
+  /* 第一行：右侧“View Profile”按钮 */
+  .view-profile {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+    align-self: center;
+    justify-self: end;
+    background: #128C7E;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* 第二行：职业描述 */
+  .candidate-description {
+    grid-row: 2 / 3;
+    grid-column: 1 / 4; /* 跨三列 */
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  /* 第三行：Expert in & Commitment */
+  .skills-commitment-row {
+    grid-row: 3 / 4;
+    grid-column: 1 / 4; /* 跨三列 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2px;
+    font-size: 14px;
+    color: black;
+    font-weight: 500;
+  }
+  
+  /* 第四行：技能 + Full-time/Part-time */
+  .skills-row {
+    grid-row: 4 / 5;
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* 技能标签容器 */
+  .skills-tags {
+    display: flex;
+    gap: 8px; /* 技能标签间距 */
+    flex-wrap: wrap;
+    margin-top: 8px; /* 与上面部分稍作间距 */
+  }
+  
+  /* 技能标签外观 */
+  .skills-tags span {
+    display: inline-block;
+    background-color: #f5faff;
+    color: #128C7E;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* 承诺栏 */
+  .commitment {
+    text-align: right;
+    font-size: 14px;
+    color: black;
+    font-weight: 500;
+  }
+  
+  .commitment-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .commitment-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #f5faff;
+    color: #128C7E;
+    border: 1px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .commitment-buttons .commitment-button:hover {
+    background-color: #128C7E;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /****************************************/
+  /** 2) 底部分页导航样式 **/
+  /****************************************/
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .page-info {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  .pagination span {
+    font-size: 14px;
+    color: #6b7280;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .pagination-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
+  
+  .pagination-button {
+    padding: 10px 20px;
+    background-color: #f9fafb;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .pagination-button:hover {
+    background-color: #e5e7eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pagination-button:disabled {
+    background-color: #f3f4f6;
+    color: #9ca3af;
+    border-color: #e5e7eb;
+    cursor: not-allowed;
+  }
+  
+  /****************************************/
+  /** 3) 详情页面（当点击 "View profile" 切换到单列详情） **/
+  /****************************************/
+  /* 单列容器：居中显示一个大卡片 */
+  .single-detail-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* 详情卡片 */
+  .candidate-detail-card {
+    width: 90%;
+    max-width: 800px; /* 控制详情卡片的最大宽度，随需调整 */
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* “Back”按钮右上角绝对定位 */
+  .candidate-detail-back {
+    background-color: #128C7E;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute; 
+    right: 16px;
+    top: 16px;
+  }
+  .candidate-detail-back:hover {
+    background-color: #0f7c6b;
+  }
+  
+  /* 头像 + 标题 + 描述 */
+  .candidate-detail-header {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .detail-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px; 
+    object-fit: cover;
+  }
+  .detail-header-text h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  .detail-description {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  /* 技能、commitment 信息 */
+  .detail-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    margin: 16px 0;
+  }
+  .detail-skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  /* 单个技能Tag */
+  .detail-skill-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #f5faff;
+    color: #128C7E;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 12px;
+  }
+  .commitment-block {
+    text-align: right;
+  }
+  
+  /* 薪资 & AI Interview */
+  .detail-commitment-info {
+    margin: 16px 0;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  /* Tabs示例 */
+  .detail-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px; /* 与 AI Interview稍作间距 */
+  }
+  .detail-tabs button {
+    background-color: #e5e7eb;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .ai-interview-section {
+    margin-bottom: 24px; /* 如果后面还有内容 */
+  }
+  .ai-interview-section h4 {
+    margin-top: 0;
+  }
+  .video-placeholder {
+    width: 300px;
+    height: 200px;
+    background-color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  /* 4) Work Experience & Education 区块的示例样式 */
+  .work-experience-section,
+  .education-section {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb; /* 分割线 */
+  }
+  
+  .work-experience-section h4,
+  .education-section h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .experience-item {
+    margin-bottom: 16px;
+  }
+  .experience-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+  .experience-title-row h5 {
+    margin: 0;
+    font-size: 14px;
+    color: #128C7E;
+    font-weight: 600;
+  }
+  .experience-badge {
+    background-color: #128C7E;
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .experience-company-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #666;
+  }
+  .experience-timeline {
+    color: #999;
+  }
+  .experience-description {
+    margin: 8px 0 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #555;
+  }
+  
+  .education-item {
+    margin-bottom: 12px;
+  }
+  .education-item h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #128C7E;
+  }
+  .education-timeline {
+    margin-left: 6px;
+    font-size: 12px;
+    color: #999;
+  }
+ /* Hire按钮 */
+.candidate-detail-hire {
+    background-color: #dbfbe1; 
+    color: #128C7E;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute; 
+    right: 80px; 
+    top: 16px;
+    /* 你可以把它改成 inline 或者放在别的位置 */
+  }
+  
+
+/* 1) 保留你原先的初始状态设置不变 */
+.view-profile::after {
+    content: "\279C";           /* 箭头符号，如 ➜ */
+    margin-left: 0px;           /* 起始时不留空隙 */
+    color: #fff;                /* 如果按钮文字是白色 */
+    opacity: 0;                 /* 初始全透明 */
+    transform: translateX(-5px);/* 初始稍微往左 */
+    transition:
+      margin-left 0.3s ease,
+      transform 0.3s ease,
+      opacity 0.3s ease;        /* 三个属性都平滑过渡 */
+  }
+  
+  /* 2) 把鼠标悬停范围换成 .candidate-card:hover */
+  .candidate-card:hover .view-profile::after {
+    opacity: 1;                 /* 显示箭头 */
+    margin-left: 6px;           /* 箭头与文字之间间隔 */
+    transform: translateX(0);   /* 回到原位 */
+  }
+  

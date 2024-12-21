@@ -39,7 +39,7 @@
     display: flex;
     align-items: center;
     gap: 20px; 
-    color: white;
+    color: black;
   }
   
   .navbar-auth button {
@@ -47,15 +47,12 @@
     margin-left: 20px;
     border-radius: 5px;
     border: none;
-    background-color: white;
-    color: #003153;
+    background-color: #128C7E;
+    color: white;
     cursor: pointer;
   }
   
-  .navbar-auth button:hover {
-    background-color: white;
-    color: white;
-  }
+  
   
   .landr {
     text-decoration: none;

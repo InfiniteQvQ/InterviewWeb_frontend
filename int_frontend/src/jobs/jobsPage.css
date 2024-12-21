@@ -1,0 +1,11 @@
+.company-page {
+    display: flex; /* 使用 flex 布局，将导航栏和内容区域并排显示 */
+  }
+  
+  .company-content {
+    flex-grow: 1; /* 右侧内容区域占据剩余空间 */
+    margin-left: 8vw; /* 确保内容不会覆盖导航栏 */
+    padding: 20px;
+    box-sizing: border-box; /* 确保 padding 不会影响布局宽度 */
+  }
+  

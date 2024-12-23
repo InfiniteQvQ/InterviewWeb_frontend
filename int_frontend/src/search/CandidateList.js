@@ -15,7 +15,7 @@ const CandidateList = () => {
   const currentCandidates = [...Array(totalCandidates)].map((_, i) => {
     return {
       id: i,
-      name: `A. V.`,
+      name: `S. T.`,
       experience: i + 1,
       description: "Developed high-scale video transcoding services and ML pipelines at Amazon.",
       skills: ["AWS", "C++", "Docker", "JavaScript", "React"],
@@ -100,7 +100,7 @@ const CandidateList = () => {
             className="candidate-detail-back"
             onClick={() => setSelectedCandidate(null)}
           >
-            Back
+            返回
           </button>
 
           {/* Hire按钮 */}
@@ -108,7 +108,7 @@ const CandidateList = () => {
             className="candidate-detail-hire"
             onClick={handleHireCandidate}
           >
-            Hire
+            雇用
           </button>
 
           {/* 头像 + 名字 + 年限 */}
@@ -127,7 +127,7 @@ const CandidateList = () => {
           {/* 技能 / Commitments */}
           <div className="detail-info-row">
             <div>
-              <h4>Expert in</h4>
+              <h4>擅长技能</h4>
               <div className="detail-skills-row">
                 {selectedCandidate.skills.map((skill) => (
                   <span key={skill} className="detail-skill-tag">{skill}</span>
@@ -135,7 +135,7 @@ const CandidateList = () => {
               </div>
             </div>
             <div className="commitment-block">
-              <h4>Commitment:</h4>
+              <h4>职位类型</h4>
               <div className="commitment-buttons-row">
                 <button className="commitment-button">Full-time</button>
                 <button className="commitment-button">Part-time</button>
@@ -158,12 +158,12 @@ const CandidateList = () => {
             <button onClick={() => handleScrollTo("aiInterview")}>Interview</button>
             <button onClick={() => handleScrollTo("workExperience")}>Experience</button>
             <button onClick={() => handleScrollTo("educationSection")}>Education</button>
-            <button>Awards</button>
+            <button>奖项</button>
           </div>
 
           {/* AI Interview */}
           <div id="aiInterview" className="ai-interview-section">
-            <h4>AI Interview</h4>
+            <h4>面试结果</h4>
             <div className="video-placeholder">
               <p>Video or some embedded content</p>
             </div>
@@ -171,7 +171,7 @@ const CandidateList = () => {
 
           {/* Work Experience */}
           <div id="workExperience" className="work-experience-section">
-            <h4>Work Experience</h4>
+            <h4>工作经历</h4>
             {selectedCandidate.workExperience?.map((job, idx) => (
               <div key={idx} className="experience-item">
                 <div className="experience-title-row">
@@ -191,7 +191,7 @@ const CandidateList = () => {
 
           {/* Education */}
           <div id="educationSection" className="education-section">
-            <h4>Education</h4>
+            <h4>教育经历</h4>
             {selectedCandidate.education?.map((edu, idx) => (
               <div key={idx} className="education-item">
                 <h5>{edu.degree}</h5>
@@ -220,16 +220,14 @@ const CandidateList = () => {
             </div>
             <div className="candidate-name">
               <h3>
-                {candidate.name} | Exp: {candidate.experience} years
+                {candidate.name} | 经验: {candidate.experience} 年
               </h3>
             </div>
             {/* 点击 => 进入详情模式 */}
             <button
               className="view-profile"
               onClick={() => setSelectedCandidate(candidate)}
-            >
-              View profile
-            </button>
+            > 查看详情</button>
 
             {/* 第二行：职业描述 */}
             <div className="candidate-description">
@@ -239,10 +237,10 @@ const CandidateList = () => {
             {/* 第三行：Expert in 和 Commitment */}
             <div className="skills-commitment-row">
               <div>
-                <span>Expert in</span>
+                <span>擅长技能</span>
               </div>
               <div className="commitment">
-                <span>Commitment:</span>
+                <span>职位类型</span>
               </div>
             </div>
 
@@ -271,14 +269,14 @@ const CandidateList = () => {
             disabled={currentPage === 1}
             className="pagination-button"
           >
-            Previous
+            前一页
           </button>
           <button
             onClick={goToNextPage}
             disabled={currentPage === totalPages}
             className="pagination-button"
           >
-            Next
+            下一页
           </button>
         </div>
       </div>

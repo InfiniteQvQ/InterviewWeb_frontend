@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^4.4.7",
     "cra-template": "1.2.0",
     "react": "^18.0.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-datepicker": "^7.5.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.28.0",
     "react-scripts": "^5.0.1",
@@ -39,17 +42,12 @@
     "@svgr/plugin-svgo": "6.5.1",
     "@svgr/webpack": "6.5.1",
     "css-select": "4.3.0",
-    "nth-check": "2.1.1",
-    "postcss": "8.4.49",
     "resolve-url-loader": "^5.0.0",
     "svgo": "^3.3.2"
   },
-  "resolutions": {
-    "nth-check": "2.1.1",
-    "postcss": "8.4.49",
-    "css-select": "4.3.0",
-    "svgo": "3.3.2",
-    "@svgr/plugin-svgo": "6.5.1",
-    "@svgr/webpack": "6.5.1"
+  "overrides": {
+    "nth-check": ">=2.0.1",
+    "postcss": "8.4.49"
   }
+
 }

@@ -1,0 +1,171 @@
+/* Filters Container */
+.spend-filters {
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+    gap: 16px; 
+    
+    width: auto; 
+    
+    margin-top: 5vh;
+}
+
+/* Dropdown Common Styles */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-button {
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; 
+}
+
+.dropdown-button:hover {
+    background-color: #e5e7eb;
+}
+
+.dropdown-icon {
+    width: 16px;
+    height: 16px;
+    stroke: #128c7e;
+    transition: transform 0.3s ease;
+}
+
+.dropdown.open .dropdown-icon {
+    transform: rotate(180deg); /* 下拉时箭头旋转 */
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.dropdown-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #111827;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f9fafb;
+}
+
+.create-project-button {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    color: #128c7e;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.3s ease;
+}
+
+.create-project-button:hover {
+    text-decoration: underline;
+    color: #0a6c5a;
+}
+
+/* Date Picker Calendar */
+.dropdown-calendar {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 16px;
+    width: auto; 
+}
+
+/* Highlighted Dates in Date Picker */
+.react-datepicker__day--selected {
+    background-color: #128c7e !important;
+    color: white !important;
+    border-radius: 50%;
+}
+
+.react-datepicker__day:hover {
+    background-color: #1dad9c !important;
+    color: white !important;
+    border-radius: 50%;
+}
+
+/* Aligning the Filters Section Line */
+.team-filters-line {
+    width: 100%;
+    max-width: 80vw;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 20px 0;
+}
+
+.spend-container {
+    width: 100%;
+    max-width: 62vw;
+    margin-top: 4vh;
+    margin-left: 14vw;
+    margin-right:14vw;
+}
+
+
+.chart-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .spend-summary {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-between;
+    text-align: start;
+  }
+  
+  .spend-summary h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+  
+  .span1 {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0;
+  }
+
+  .spend2{
+    font-size: 16px;
+    color: black;
+    margin: 5px 0; 
+  }
+  

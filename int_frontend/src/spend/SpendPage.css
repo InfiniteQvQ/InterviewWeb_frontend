@@ -1,0 +1,85 @@
+.spends-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; 
+    margin-bottom: 20px;
+}
+
+.spends-header-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3vh;
+    margin-left: 14vw;
+}
+
+.spends-header h1 {
+    font-size: 16px;
+    color: #111827;
+}
+
+.spends-header p {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+    margin-top: 4px; /* 确保文字间距 */
+}
+
+/* 按钮容器 */
+.spends-header-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 3vh;
+    margin-right: 14vw;
+}
+
+/* Export Button */
+.export-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f3f4f6; /* 浅灰色背景 */
+    color: #128C7E; 
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.export-button:hover {
+    background-color: #e5e7eb; /* 鼠标悬停变为更浅的灰色 */
+}
+
+.export-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Billing Details Button */
+.billing-details-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #128C7E; /* 深绿色背景 */
+    color: white; /* 白色字体 */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.billing-details-button:hover {
+    background-color: #1dad9c; /* 鼠标悬停变为更亮的绿色 */
+}
+
+.billing-details-button svg {
+    width: 16px;
+    height: 16px;
+}

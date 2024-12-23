@@ -8,7 +8,7 @@ const CompanyNavbar = () => {
       <div className="company-navbar-logo">
          <Link to="/">
             <img
-                src="/Mercor.jpg" 
+                src="/Fc.jpg" 
                 alt="Logo"
                 className="navbar-logo-image"
                 style={{ width: '45px', height: '45px' }}
@@ -19,31 +19,31 @@ const CompanyNavbar = () => {
         <li>
           <Link to="/search">
             <img src="/Search.jpg" alt="Search" className="navbar-icon" />
-            <span>Search</span>
+            <span>搜索</span>
           </Link>
         </li>
         <li>
           <Link to="/jobs">
             <img src="/Jobs.jpg" alt="Jobs" className="navbar-icon" />
-            <span>Jobs</span>
+            <span>工作</span>
           </Link>
         </li>
         <li>
           <Link to="/team">
             <img src="/Team.jpg" alt="Team" className="navbar-icon" />
-            <span>Team</span>
+            <span>团队</span>
           </Link>
         </li>
         <li>
           <Link to="/spend">
             <img src="/Spend.jpg" alt="Spend" className="navbar-icon" />
-            <span>Spend</span>
+            <span>花销</span>
           </Link>
         </li>
         <li>
           <Link to="/settings">
             <img src="/Settings.jpg" alt="Settings" className="navbar-icon" />
-            <span>Settings</span>
+            <span>设置</span>
           </Link>
         </li>
       </ul>

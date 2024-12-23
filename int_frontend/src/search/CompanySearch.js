@@ -29,7 +29,7 @@ const CompanySearch = () => {
             <span className="filter-label">Can work:</span>
             <button className="filter-button">Full-time or Part-time</button>
             <button className="edit-filters" onClick={toggleFilters}>
-              Edit filters
+              编辑过滤内容
             </button>
           </div>
         </div>
@@ -39,7 +39,7 @@ const CompanySearch = () => {
           <div className="filter-modal">
             <div className="filter-modal-content">
               <div className="filter-header">
-                <h2>Filter your candidates</h2>
+                <h2>过滤候选人</h2>
                 <button className="close-modal" onClick={toggleFilters}>
                   ✕
                 </button>
@@ -47,31 +47,31 @@ const CompanySearch = () => {
               <div className="filter-body">
                 {/* 过滤器表单 */}
                 <div className="filter-group">
-                  <label>Skills or Keywords</label>
+                  <label>能力关键字</label>
                   <input type="text" placeholder="Python, Kubernetes, Django" />
                 </div>
                 <div className="filter-group">
-                  <label>Companies</label>
+                  <label>公司</label>
                   <input type="text" placeholder="Google, Amazon, Microsoft" />
                 </div>
                 <div className="filter-group">
-                  <label>Job Titles</label>
+                  <label>工作岗位</label>
                   <input type="text" placeholder="Software Engineer, Lawyer, Consultant" />
                 </div>
                 <div className="filter-group">
-                  <label>Field of Study</label>
+                  <label>从业领域</label>
                   <input type="text" placeholder="Computer Science, Chemistry, Literature" />
                 </div>
                 <div className="filter-group">
-                  <label>Degree Requirements</label>
+                  <label>学位要求</label>
                   <input type="text" placeholder="Bachelors, Masters, Doctorate" />
                 </div>
                 <div className="filter-group">
-                  <label>Universities</label>
+                  <label>大学要求</label>
                   <input type="text" placeholder="Harvard, IIT, Top 50 program" />
                 </div>
                 <div className="filter-group">
-                  <label>Availability</label>
+                  <label>工作性质</label>
                   <select>
                     <option>Full-time or Part-time</option>
                     <option>Full-time</option>
@@ -79,21 +79,21 @@ const CompanySearch = () => {
                   </select>
                 </div>
                 <div className="filter-group">
-                  <label>Start date</label>
+                  <label>开始时间</label>
                   <input type="date" />
                 </div>
                 <div className="filter-group">
-                  <label>Min Monthly Budget</label>
+                  <label>最低月薪</label>
                   <input type="number" placeholder="0" />
                 </div>
                 <div className="filter-group">
-                  <label>Max Monthly Budget</label>
+                  <label>最高月薪</label>
                   <input type="number" placeholder="50000" />
                 </div>
               </div>
               <div className="filter-footer">
-                <button className="clear-filters">Clear filters</button>
-                <button className="save-filters">Save filters</button>
+                <button className="clear-filters">清空</button>
+                <button className="save-filters">保存</button>
               </div>
             </div>
           </div>

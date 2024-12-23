@@ -9,7 +9,7 @@ const Navbar = ({ isLoggedIn, username, handleLogout }) => {
       <div className="navbar-logo">
         <Link to="/">
           <img
-            src="/Mercor.jpg" 
+            src="/Fc.jpg" 
             alt="Logo"
             className="navbar-logo-image"
             style={{ width: '45px', height: '45px' }}

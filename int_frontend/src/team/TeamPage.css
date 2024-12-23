@@ -1,11 +1,210 @@
-.company-page {
+/* 整个页面样式 */
+.team-page {
     display: flex;
-}
-  
-.company-content {
-    flex-grow: 1; 
-    margin-left: 8vw; 
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    box-sizing: border-box; 
-}
+    background-color: #f9fafb;
+    height:100vh;
+  }
   
+  /* 搜索框容器 */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 40px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 60vw;
+    margin-bottom: 20px;
+    margin-top:12vh;
+    justify-content: space-between; 
+  }
+  
+  .search-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left:2vw;
+  }
+ 
+  .search-label {
+    font-size: 13px;
+    color: black;
+    margin-bottom: 4px;
+  }
+  
+  .team-search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #111827;
+    padding: 4px 0;
+  } 
+  
+  /* 搜索按钮 */
+  .team-search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #128C7E, #1dad9c);
+    color: white;
+    border: none;
+    border-radius: 24px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .team-search-button:hover {
+    background: linear-gradient(90deg, #1dad9c, #2cbbaa);
+  }
+  
+  .search-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+  
+/* 筛选按钮容器 */
+.team-filters {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    margin-bottom: 20px;
+    margin-top:5vh;
+  }
+.team-filters-line {
+    width: 100%;
+    max-width: 60vw; 
+    height: 1px;
+    background-color: #e5e7eb; 
+    margin-bottom: 20px;
+}
+  /* 下拉菜单通用样式 */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-button {
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .dropdown-button:hover {
+    background-color: #e5e7eb;
+  }
+
+  .dropdown-icon {
+    width: 16px;
+    height: 16px;
+    stroke: #128C7E;
+    transition: transform 0.3s ease;
+  }
+  
+  .dropdown.open .dropdown-icon {
+    transform: rotate(180deg); /* 当下拉菜单打开时，箭头向上 */
+  }
+  
+  /* 下拉菜单 */
+  .dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 1000;
+  }
+  
+  /* 下拉菜单项 */
+  .dropdown-item {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #111827;
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f9fafb;
+  }
+  
+  /* 创建项目按钮 */
+  .create-project-button {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    color: #128C7E;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  /* 勾选图标 */
+  .check-icon {
+    font-size: 12px;
+    color: #128C7E;
+  }
+  
+  /* 占位内容 */
+  /* 占位内容容器 */
+.team-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+/* 占位内容样式 */
+.team-placeholder {
+    text-align: center;
+    color: #6b7280;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 增加每行之间的间距 */
+}
+
+/* 占位内容标题 */
+.team-placeholder p {
+    font-size: 16px; /* 标题字体大小 */
+    font-weight: bold; /* 标题加粗 */
+    margin: 0;
+}
+
+/* 占位内容说明 */
+.team-placeholder span {
+    font-size: 14px; /* 说明字体大小 */
+    margin: 0;
+}
+
+/* 按钮样式 */
+.hire-team-button {
+    margin-top: 8px;
+    background-color: #128C7E;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.hire-team-button:hover {
+    background-color: #1dad9c;
+}

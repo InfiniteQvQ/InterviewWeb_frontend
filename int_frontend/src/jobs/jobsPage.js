@@ -181,7 +181,7 @@ const JobsPage = () => {
           <div className="modal-content">
             {isDetailedForm ? (
               <>
-                <h2>{editingJob ? "Edit Job" : "Create Job"}</h2>
+                <h2>{editingJob ? "编辑工作" : "创建工作"}</h2>
                 <div className="form-group">
                   <label>工作标题</label>
                   <input

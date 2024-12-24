@@ -1,66 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CandidateList.css";
+import axios from "axios";
+import API_BASE_URL from '../config/apiConfig';
 
 const CandidateList = () => {
-  const totalCandidates = 50; // 假设总共有50个候选人
-  const candidatesPerPage = 10; // 每页显示10个候选人
+  const candidatesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
-  
-  // 新增：记录“当前查看的候选人”，null 表示「列表模式」
+  const [candidates, setCandidates] = useState([]);
+  const [candidateDetails, setCandidateDetails] = useState(null);
+  const [loadingDetails, setLoadingDetails] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // 1) 这里是模拟数据：给每个候选人加上 workExperience, education 字段。
+  useEffect(() => {
+    const fetchCandidates = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/search/list`);
+        setCandidates(response.data);
+      } catch (error) {
+        console.error("Error fetching candidates:", error);
+      }finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchCandidates();
+  }, []);
+
+ 
   const indexOfLastCandidate = currentPage * candidatesPerPage;
   const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
-  const currentCandidates = [...Array(totalCandidates)].map((_, i) => {
-    return {
-      id: i,
-      name: `S. T.`,
-      experience: i + 1,
-      description: "Developed high-scale video transcoding services and ML pipelines at Amazon.",
-      skills: ["AWS", "C++", "Docker", "JavaScript", "React"],
-      workExperience: [
-        {
-          title: "Software Development Engineer",
-          company: "Amazon Inc.",
-          timeline: "2021 - Present",
-          badge: "Exceptional",
-          description: `Researched and created proofs-of-concepts for video processing 
-            and ran bulk tests with multiple tools like FFmpeg, OpenCV, MediaConvert, 
-            Elemental Transcoder to compare best fit for our internal use case...`
-        },
-        {
-          title: "Software Engineer",
-          company: "Oracle",
-          timeline: "2021 - 2021",
-          badge: "Prestigious",
-          description: `Worked in the Forwarding Plane team in software defined wide area 
-            network project using C and C++. Work revolved around algorithm to decide 
-            packet forwarding based on data about various WAN paths available.`
-        },
-      ],
-      education: [
-        {
-          degree: "Bachelors of Technology, Electrical Engineering",
-          institution: "Delhi Technological University",
-          timeline: "2017 - 2021",
-        },
-        {
-          degree: "Class XII",
-          institution: "Sarla Chopra DAV Public School",
-          timeline: "2015 - 2017",
-        },
-        {
-          degree: "Class X",
-          institution: "Sarla Chopra DAV Public School",
-          timeline: "2015 - 2017",
-        },
-      ],
-    };
-  }).slice(indexOfFirstCandidate, indexOfLastCandidate);
-
-  // 计算总页数
-  const totalPages = Math.ceil(totalCandidates / candidatesPerPage);
+  const currentCandidates = candidates.slice(indexOfFirstCandidate, indexOfLastCandidate);
+  const DEFAULT_IMAGE_URL = "http://18.117.97.107:8080/images/emp.jpg";
+ 
+  const totalPages = Math.ceil(candidates.length / candidatesPerPage);
 
   // 点击“Hire”
   const handleHireCandidate = () => {
@@ -80,6 +53,31 @@ const CandidateList = () => {
     }
   };
 
+  if (loading || loadingDetails) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+        正在加载候选人数据，请稍候...
+      </div>
+    );
+  }
+  
+  const handleViewDetails = async (candidate) => {
+    setSelectedCandidate(candidate); 
+    setLoadingDetails(true); 
+    setCandidateDetails(null);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/search/${candidate.id}`);
+      const candidateData = response.data;
+      setCandidateDetails(candidateData); 
+    } catch (error) {
+      console.error("Error fetching candidate details:", error);
+    } finally {
+      setLoadingDetails(false);
+    }
+  };
+  
+
   // ======= 新增：滚动到对应区块的函数 =======
   const handleScrollTo = (sectionId) => {
     const el = document.getElementById(sectionId);
@@ -91,15 +89,16 @@ const CandidateList = () => {
   // ===================================================
   // 如果已经选中了某个候选人，就渲染「单个详情模式」
   // ===================================================
-  if (selectedCandidate) {
+  if (selectedCandidate && candidateDetails) {
+
     return (
       <div className="single-detail-container">
         <div className="candidate-detail-card">
           {/* 返回按钮 */}
-          <button
-            className="candidate-detail-back"
-            onClick={() => setSelectedCandidate(null)}
-          >
+          <button className="candidate-detail-back" onClick={() => {
+            setSelectedCandidate(null);
+            setCandidateDetails(null);
+            }}>
             返回
           </button>
 
@@ -113,13 +112,17 @@ const CandidateList = () => {
 
           {/* 头像 + 名字 + 年限 */}
           <div className="candidate-detail-header">
-            <img src="/SearchPeople.jpg" alt="Candidate" className="detail-photo" />
+            <img src={candidateDetails.profile.imageUrl} alt="Candidate" className="detail-photo"
+                onError={(e) => {
+                    e.target.onerror = null;   
+                    e.target.src = DEFAULT_IMAGE_URL;
+                }}/>
             <div className="detail-header-text">
               <h3>
-                {selectedCandidate.name} | Exp: {selectedCandidate.experience} years
+              {candidateDetails.profile.user.username} | 经验: {candidateDetails.exp} 年
               </h3>
               <p className="detail-description">
-                {selectedCandidate.description}
+              {candidateDetails.profile.description}
               </p>
             </div>
           </div>
@@ -129,9 +132,8 @@ const CandidateList = () => {
             <div>
               <h4>擅长技能</h4>
               <div className="detail-skills-row">
-                {selectedCandidate.skills.map((skill) => (
-                  <span key={skill} className="detail-skill-tag">{skill}</span>
-                ))}
+                {candidateDetails.skills.map(skill => (
+                    <span key={skill.id} className="detail-skill-tag">{skill.skillName}</span>))}
               </div>
             </div>
             <div className="commitment-block">
@@ -146,19 +148,18 @@ const CandidateList = () => {
           {/* 薪资、AI Interview之类的更多信息 */}
           <div className="detail-commitment-info">
             <p>
-              <strong>Full-time at $6,935 / month</strong> (Starts in 4 weeks)
+              <strong>Full-time at ¥ {Math.round(candidateDetails.profile.expectedSalary / 12)} / 月</strong> (Starts in 4 weeks)
             </p>
             <p>
-              <strong>Part-time at $3,468 / month</strong> (Starts immediately)
+              <strong>Part-time at ¥ {Math.round(candidateDetails.profile.expectedSalary / 24)} / 月</strong> (Starts immediately)
             </p>
           </div>
 
           {/* ========== 按钮点击滚动到对应区块 ========== */}
           <div className="detail-tabs">
-            <button onClick={() => handleScrollTo("aiInterview")}>Interview</button>
-            <button onClick={() => handleScrollTo("workExperience")}>Experience</button>
-            <button onClick={() => handleScrollTo("educationSection")}>Education</button>
-            <button>奖项</button>
+            <button onClick={() => handleScrollTo("aiInterview")}>面试记录</button>
+            <button onClick={() => handleScrollTo("workExperience")}>工作经历</button>
+            <button onClick={() => handleScrollTo("educationSection")}>教育经历</button>
           </div>
 
           {/* AI Interview */}
@@ -172,17 +173,14 @@ const CandidateList = () => {
           {/* Work Experience */}
           <div id="workExperience" className="work-experience-section">
             <h4>工作经历</h4>
-            {selectedCandidate.workExperience?.map((job, idx) => (
+            {candidateDetails.workExperience?.map((job, idx) => (
               <div key={idx} className="experience-item">
                 <div className="experience-title-row">
-                  <h5>{job.title}</h5>
-                  {job.badge && (
-                    <span className="experience-badge">{job.badge}</span>
-                  )}
+                  <h5>{job.position}</h5>
                 </div>
                 <div className="experience-company-time">
-                  <strong>{job.company}</strong>
-                  <span className="experience-timeline">{job.timeline}</span>
+                  <strong>{job.companyName}</strong>
+                  <span className="experience-timeline">{`${new Date(job.startDate).toLocaleDateString(undefined, { year: 'numeric' })} - ${new Date(job.endDate).toLocaleDateString(undefined, { year: 'numeric' })}`}</span>
                 </div>
                 <p className="experience-description">{job.description}</p>
               </div>
@@ -192,11 +190,16 @@ const CandidateList = () => {
           {/* Education */}
           <div id="educationSection" className="education-section">
             <h4>教育经历</h4>
-            {selectedCandidate.education?.map((edu, idx) => (
+            {candidateDetails.education?.map((edu, idx) => (
               <div key={idx} className="education-item">
-                <h5>{edu.degree}</h5>
-                <strong>{edu.institution}</strong>
-                <span className="education-timeline">{edu.timeline}</span>
+                <div className="education-header">
+
+                    <h5>{edu.major}     |     {edu.degree}</h5>
+                </div>
+                <div className="education-footer">
+                    <strong>{edu.schoolName}</strong>
+                    <span className="education-timeline">{`${new Date(edu.startDate).toLocaleDateString(undefined, { year: 'numeric' })} - ${new Date(edu.endDate).toLocaleDateString(undefined, { year: 'numeric' })}`}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -216,7 +219,11 @@ const CandidateList = () => {
           <div className="candidate-card" key={candidate.id}>
             {/* 第一行：图片｜姓名 | View Profile */}
             <div className="candidate-photo">
-              <img src="/SearchPeople.jpg" alt="Candidate" className="photo" />
+                <img src={candidate.imageUrl} alt="Candidate" className="photo"
+                onError={(e) => {
+                    e.target.onerror = null;   
+                    e.target.src = DEFAULT_IMAGE_URL;
+                }}/>
             </div>
             <div className="candidate-name">
               <h3>
@@ -226,7 +233,7 @@ const CandidateList = () => {
             {/* 点击 => 进入详情模式 */}
             <button
               className="view-profile"
-              onClick={() => setSelectedCandidate(candidate)}
+              onClick={() => handleViewDetails(candidate)}
             > 查看详情</button>
 
             {/* 第二行：职业描述 */}
@@ -252,8 +259,15 @@ const CandidateList = () => {
                 ))}
               </div>
               <div className="commitment-buttons-row">
-                <button className="commitment-button">Full-time</button>
-                <button className="commitment-button">Part-time</button>
+                {candidate.isFullTime ? (
+                    <>
+                        <button className="commitment-button">Full-time</button>
+                        <button className="commitment-button">Part-time</button>
+                    </>
+                ) : (
+                    <button className="commitment-button">Part-time</button>
+                )}
+                
               </div>
             </div>
           </div>

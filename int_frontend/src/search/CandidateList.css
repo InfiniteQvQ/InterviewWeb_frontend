@@ -362,11 +362,10 @@
     font-weight: 600;
   }
   .experience-badge {
-    background-color: #128C7E;
-    color: #fff;
+  
     padding: 3px 6px;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 14px;
   }
   .experience-company-time {
     display: flex;
@@ -400,13 +399,34 @@
   }
   .education-footer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-top: 4px;
   }
+
+  .edu-badge {
+    margin-left: 14px;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 10px;
+  }
+
+  .outstanding {
+    background-color: #dbfbe1;  
+    color: #128C7E;
+  }
+  
+  .excellent {
+    background-color: #cde8ff; 
+    color: #1669ac;
+  }
+
+  .good {
+    background-color: #fdf1e0; 
+    color: #f4990f;
+  }
   .education-timeline {
     align-self: end;
-    margin-left: 6px;
+    margin-left: auto;
     font-size: 16px;
     color: #777;
   }

@@ -41,6 +41,19 @@ const CandidateList = () => {
     alert(`You have chosen to hire ${selectedCandidate.name}.`);
   };
 
+  const getEvalClass = (evalValue) => {
+    switch (evalValue) {
+      case '杰出':
+        return 'outstanding';
+      case '优秀':
+        return 'excellent';
+      case '良好':
+        return 'good';
+      default:
+        return '';
+    }
+  };
+  
   // 分页相关
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -139,8 +152,15 @@ const CandidateList = () => {
             <div className="commitment-block">
               <h4>职位类型</h4>
               <div className="commitment-buttons-row">
-                <button className="commitment-button">Full-time</button>
-                <button className="commitment-button">Part-time</button>
+                {candidateDetails.profile.isFullTime ? (
+                  <>
+                    <button className="commitment-button">Full-time</button>
+                    <button className="commitment-button">Part-time</button>
+                  </>
+                    
+                ) : (                
+                  <button className="commitment-button">Part-time</button>
+                )}
               </div>
             </div>
           </div>
@@ -148,10 +168,10 @@ const CandidateList = () => {
           {/* 薪资、AI Interview之类的更多信息 */}
           <div className="detail-commitment-info">
             <p>
-              <strong>Full-time at ¥ {Math.round(candidateDetails.profile.expectedSalary / 12)} / 月</strong> (Starts in 4 weeks)
+              <strong>Full-time at ¥ {Math.round(candidateDetails.profile.expectedSalary / 12)} / 月</strong> (在四周内开始工作)
             </p>
             <p>
-              <strong>Part-time at ¥ {Math.round(candidateDetails.profile.expectedSalary / 24)} / 月</strong> (Starts immediately)
+              <strong>Part-time at ¥ {Math.round(candidateDetails.profile.expectedSalary / 24)} / 月</strong> (即刻开始工作)
             </p>
           </div>
 
@@ -176,7 +196,7 @@ const CandidateList = () => {
             {candidateDetails.workExperience?.map((job, idx) => (
               <div key={idx} className="experience-item">
                 <div className="experience-title-row">
-                  <h5>{job.position}</h5>
+                  <h5>{job.position}</h5>{job.eval && (<span className={`experience-badge ${getEvalClass(job.eval)}`}>{job.eval}</span>)}
                 </div>
                 <div className="experience-company-time">
                   <strong>{job.companyName}</strong>
@@ -198,6 +218,7 @@ const CandidateList = () => {
                 </div>
                 <div className="education-footer">
                     <strong>{edu.schoolName}</strong>
+                    {edu.eval && (<span className={`edu-badge ${getEvalClass(edu.eval)}`}>{edu.eval}</span>)}
                     <span className="education-timeline">{`${new Date(edu.startDate).toLocaleDateString(undefined, { year: 'numeric' })} - ${new Date(edu.endDate).toLocaleDateString(undefined, { year: 'numeric' })}`}</span>
                 </div>
               </div>

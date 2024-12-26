@@ -3,7 +3,7 @@ import "./CandidateList.css";
 import axios from "axios";
 import API_BASE_URL from '../config/apiConfig';
 
-const CandidateList = () => {
+const CandidateList = ({candidates: externalCandidates,loading2 }) => {
   const candidatesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [candidates, setCandidates] = useState([]);
@@ -13,27 +13,33 @@ const CandidateList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCandidates = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/search/list`);
-        setCandidates(response.data);
-      } catch (error) {
-        console.error("Error fetching candidates:", error);
-      }finally {
-        setLoading(false); 
-      }
-    };
+    if(!externalCandidates){
+     
+      const fetchCandidates = async () => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/search/list`);
+          setCandidates(response.data);
+        } catch (error) {
+          console.error("Error fetching candidates:", error);
+        }finally {
+    
+          setLoading(false); 
+        }
+      };
+  
+      fetchCandidates();
+    }
+    
+  }, [externalCandidates]);
 
-    fetchCandidates();
-  }, []);
+  const candidatesToShow = externalCandidates || candidates;
 
- 
   const indexOfLastCandidate = currentPage * candidatesPerPage;
   const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
-  const currentCandidates = candidates.slice(indexOfFirstCandidate, indexOfLastCandidate);
+  const currentCandidates = candidatesToShow.slice(indexOfFirstCandidate, indexOfLastCandidate);
   const DEFAULT_IMAGE_URL = "http://18.117.97.107:8080/images/emp.jpg";
  
-  const totalPages = Math.ceil(candidates.length / candidatesPerPage);
+  const totalPages = Math.ceil(candidatesToShow.length / candidatesPerPage);
 
   // 点击“Hire”
   const handleHireCandidate = () => {
@@ -66,7 +72,7 @@ const CandidateList = () => {
     }
   };
 
-  if (loading || loadingDetails) {
+  if (loading || loadingDetails || loading2) {
     return (
       <div className="loading">
         <div className="spinner"></div>
@@ -75,6 +81,7 @@ const CandidateList = () => {
     );
   }
   
+
   const handleViewDetails = async (candidate) => {
     setSelectedCandidate(candidate); 
     setLoadingDetails(true); 

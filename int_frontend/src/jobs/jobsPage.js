@@ -75,9 +75,6 @@ const JobsPage = () => {
     }
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
-      
-      
-      alert("用户未登录，请先登录！");
       return;
     }
     closeJDModal();
@@ -109,7 +106,7 @@ const JobsPage = () => {
     setLoading(true);
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
-        alert("用户未登录，请先登录！");
+      
         setLoading(false);
         return;
     }
@@ -159,7 +156,6 @@ const JobsPage = () => {
 
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
-        alert("用户未登录，请先登录！");
         return;
     }
 
@@ -215,7 +211,6 @@ const JobsPage = () => {
     setActiveMenu(null);
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
-        alert("用户未登录，请先登录！");
         setLoading(false);
         return;
     }

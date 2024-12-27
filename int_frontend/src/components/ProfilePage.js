@@ -17,11 +17,12 @@ const ProfilePage = () => {
     }, [navigate]);
 
     const handleLogout = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
       try {
-        const response = await fetch('/api/users/logout', { method: 'POST' });
+        const response = await fetch(`/api/users/logout?username=${user.username}`, { method: 'POST' });
         if (response.ok) {
-          localStorage.removeItem('user'); // 清除本地存储
-          navigate('/'); // 返回到登录页面
+          localStorage.removeItem('user'); 
+          navigate('/'); 
         } else {
           alert('登出失败，请重试');
         }

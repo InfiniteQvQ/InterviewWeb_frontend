@@ -23,24 +23,8 @@ const ProfilePage = () => {
         navigate('/');
         return;
       }
-    
-      try {
-        const response = await fetch(`/api/users/logout${user.username ? `?username=${user.username}` : ''}`, {
-          method: 'POST',
-        });
-    
-        if (response.ok) {
-          localStorage.removeItem('user'); // 移除本地存储
-          alert('登出成功！');
-          navigate('/'); // 跳转到登录页面
-        } else {
-          const errorData = await response.json();
-          alert(errorData.message || '登出失败，请重试！');
-        }
-      } catch (error) {
-        console.error('Logout error:', error);
-        alert('登出时发生错误，请检查网络或联系管理员');
-      }
+      localStorage.removeItem('user'); 
+      
     };
 
   return (

@@ -24,26 +24,25 @@ const LoginRegister = ({ onLogin }) => {
 
     const requestBody = isLogin
       ? { username, pwd: password }
-      : { username, pwd: password, email }; // 添加邮箱到注册请求
+      : { username, pwd: password, email }; 
 
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify(requestBody),
       });
 
       const data = await response.json();
       if (response.ok && data.success) {
         if (isLogin) {
-          const user = data.user; // 确认从 response.data.user 中提取用户信息
-          sessionStorage.setItem('user', JSON.stringify(user));
-          if (onLogin) onLogin(user); // 调用 onLogin 回调，将用户数据传递出去
-          navigate('/profile'); // 跳转到个人中心页面
+          const user = data.user;
+          localStorage.setItem("user", JSON.stringify(user));
+          if (onLogin) onLogin(user); 
+          navigate('/profile'); 
         } else {
           alert(successMessage);
-          setIsLogin(true); // 注册成功后切换回登录模式
+          setIsLogin(true); 
         }
       } else {
         alert(data.message || errorMessage);

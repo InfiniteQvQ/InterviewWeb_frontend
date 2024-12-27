@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./jobsPage.css";
 import API_BASE_URL from '../config/apiConfig';
+import { useNavigate } from 'react-router-dom';
 
 const JobsPage = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,8 @@ const JobsPage = () => {
   const [isJDModalOpen, setIsJDModalOpen] = useState(false);
   const [jdInput, setJdInput] = useState("");
   const [jdHourlyRate, setJdHourlyRate] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchJobs();
@@ -63,13 +66,19 @@ const JobsPage = () => {
       alert("请输入完整的JD内容和小时薪资!");
       return;
     }
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.username) {
+      
+      navigate('/login'); 
+      alert("用户未登录，请先登录！");
+      return;
+    }
     closeJDModal();
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/job/generate`, {
+      const response = await fetch(`${API_BASE_URL}/job/generate?username=${user.username}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({
           description: jdInput,
           hourlyRate: parseFloat(jdHourlyRate),
@@ -91,10 +100,16 @@ const JobsPage = () => {
 
   const fetchJobs = async () => {
     setLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.username) {
+        alert("用户未登录，请先登录！");
+        setLoading(false);
+        return;
+    }
     try {
-      const response = await fetch(`${API_BASE_URL}/job/list`, {
+      const response = await fetch(`${API_BASE_URL}/job/list?username=${user.username}`, {
         method: "GET",
-        credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
       if (data.success) {
@@ -135,6 +150,12 @@ const JobsPage = () => {
       return;
     }
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.username) {
+        alert("用户未登录，请先登录！");
+        return;
+    }
+
     const jobData = {
       title: jobTitle,
       description: jobDescription,
@@ -144,10 +165,9 @@ const JobsPage = () => {
     closeModal();
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/job/${editingJob ? "update" : "add"}`, {
+      const response = await fetch(`${API_BASE_URL}/job/${editingJob ? "update" : "add"}?username=${user.username}`, {
         method: editingJob ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify(jobData),
       });
       const data = await response.json();
@@ -186,10 +206,17 @@ const JobsPage = () => {
   const deleteJob = async (id) => {
     setLoading(true);
     setActiveMenu(null);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.username) {
+        alert("用户未登录，请先登录！");
+        setLoading(false);
+        return;
+    }
+
     try {
-      const response = await fetch(`${API_BASE_URL}/job/delete/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/job/delete/${id}?username=${user.username}`, {
         method: "DELETE",
-        credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
       if (data.success) {

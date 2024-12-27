@@ -6,19 +6,30 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedUser = JSON.parse(sessionStorage.getItem('user'));
-    if (storedUser) {
-      setUser(storedUser);
-    } else {
-      navigate('/'); // 如果未登录，跳转到登录页面
-    }
-  }, [navigate]);
+  
+    useEffect(() => {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser) {
+        setUser(storedUser);
+      } else {
+        navigate('/'); // 如果未登录，跳转到登录页面
+      }
+    }, [navigate]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('user');
-    navigate('/'); // 返回到登录页面
-  };
+    const handleLogout = async () => {
+      try {
+        const response = await fetch('/api/users/logout', { method: 'POST' });
+        if (response.ok) {
+          localStorage.removeItem('user'); // 清除本地存储
+          navigate('/'); // 返回到登录页面
+        } else {
+          alert('登出失败，请重试');
+        }
+      } catch (error) {
+        console.error('Logout error:', error);
+        alert('登出时发生错误');
+      }
+    };
 
   return (
     <div className="profile-container">

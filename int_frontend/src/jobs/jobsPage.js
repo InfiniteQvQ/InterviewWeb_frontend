@@ -22,6 +22,13 @@ const JobsPage = () => {
   useEffect(() => {
     fetchJobs();
   }, []);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate('/login');
+      alert("用户未登录，请先登录！");
+    }
+  }, [navigate]);
   // Detect click outside to close menu
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -69,7 +76,7 @@ const JobsPage = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
       
-      navigate('/login'); 
+      
       alert("用户未登录，请先登录！");
       return;
     }

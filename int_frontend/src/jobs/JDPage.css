@@ -1,0 +1,214 @@
+.jd-page-container {
+    display: flex;
+    flex-direction: column; 
+    padding: 20px;
+    gap: 20px;
+    margin: 2vh 6vw 0 8vw;
+  }
+  
+  .jd-main-content {
+    display: flex; 
+    gap: 20px;
+    flex-wrap: wrap;
+    height: 82vh;
+  }
+
+  .jd-content {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    font-size: clamp(0.8rem, 1.7vw,0.8rem);
+  }
+  
+  .jd-content:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .field-container {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    height:14vh;    
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .field-container:hover {
+    background-color: #eefbf9;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .field-container.selected {
+    background-color: #eefbf9;
+    border-left: 4px solid #128C7E;
+  }
+  
+  .chat-box {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .chat-history {
+    flex: 1;
+    max-height: 60vh;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .chat-history::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .chat-history::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  
+  .chat-history::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  
+  .chat-message {
+    margin-bottom: 10px;
+    padding: 3px 15px;
+    border-radius: 8px;
+    max-width: 80%; 
+    word-wrap: break-word; 
+    font-size: 13px; 
+    line-height: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .chat-message.user {
+    background-color:  #eefbf9;
+    align-self: flex-end;
+    text-align: right;
+    color: #374151;
+  }
+  
+  .chat-message.assistant {
+    background-color: #128C7E;
+    align-self: flex-start;
+    text-align: left;
+    color: white;
+  }
+  .chat-message {
+    animation: fadeIn 0.3s ease-out;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  form {
+    display: flex;
+    gap: 10px;
+  }
+  
+  form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cbd5e1;
+    background-color: #f9fafb;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  
+  form input:focus {
+    border-color: #128C7E;
+  }
+  
+  form button {
+    padding: 10px 20px;
+    background-color: #128C7E;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  form button:hover {
+    background-color: #1dad9c;
+  }
+  
+  /* 确保对话框自动滚动 */
+  .chat-history {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: scroll;
+  }
+  
+  .chat-history .chat-message:last-child {
+    scroll-margin-bottom: 10px; /* 确保最后一条消息可见 */
+  }
+  
+  .generate-job-container {
+    display: flex;
+    justify-content: center; /* 居中按钮 */
+    margin-top: 20px;
+  }
+  
+  /* 按钮样式 */
+  .generate-job-button {
+    padding: 10px 20px;
+    background-color: #128c7e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .generate-job-button:hover {
+    background-color: #1dad9c;
+  }
+
+
+  .field-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 6px;
+    margin-top: 0px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .field-value {
+    font-size: clamp(0.85rem, 1.8vw, 0.85rem);
+    line-height: 1;
+    color: #374151;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }

@@ -12,6 +12,8 @@ import JobsPage from "./jobs/jobsPage";
 import CompanyTeam from "./team/TeamPage";
 import CompanySpend from "./spend/SpendPage";
 import CompanySetting from "./setting/SettingPage";
+import JDPage from "./jobs/JDPage";
+import JobsApplicant from "./jobs/jobsApplicant";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,7 +36,8 @@ const App = () => {
   const showCompanyNavbar =
     location.pathname === "/companies" || location.pathname === "/search" 
     || location.pathname === "/jobs" || location.pathname === "/spend"
-    || location.pathname === "/team" || location.pathname === "/settings";
+    || location.pathname === "/team" || location.pathname === "/settings"
+    || location.pathname === "/jd" || location.pathname === "/applicant"; ;
 
   return (
     <>
@@ -58,6 +61,9 @@ const App = () => {
         <Route path="/team" element={<CompanyTeam />} />
         <Route path="/spend" element={<CompanySpend />} />
         <Route path="/settings" element={<CompanySetting />} />
+        <Route path="/applicant" element={<JobsApplicant />} />
+        <Route path="/jd" element={<JDPage />} />
+        
       </Routes>
     </>
   );

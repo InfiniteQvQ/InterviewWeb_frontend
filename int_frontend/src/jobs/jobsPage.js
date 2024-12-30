@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./jobsPage.css";
 import API_BASE_URL from '../config/apiConfig';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { useCallback } from "react";
+import { useRef } from "react";
 
 const JobsPage = () => {
   const [loading, setLoading] = useState(false);
@@ -10,25 +13,28 @@ const JobsPage = () => {
   const [isDetailedForm, setIsDetailedForm] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [jobReq, setJobReq] = useState("");
   const [hourlyRate, setHourlyRate] = useState("");
   const [editingJob, setEditingJob] = useState(null);
   const [activeMenu, setActiveMenu] = useState(null);
   const [isJDModalOpen, setIsJDModalOpen] = useState(false);
   const [jdInput, setJdInput] = useState("");
   const [jdHourlyRate, setJdHourlyRate] = useState("");
-
+  const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
+  
+  const isProcessedRef = useRef(false);
+  
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+    
     if (!user) {
-      navigate('/login');
       alert("用户未登录，请先登录！");
+      navigate('/login');
     }
   }, [navigate]);
+  
+
   // Detect click outside to close menu
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,11 +57,13 @@ const JobsPage = () => {
       setJobTitle(job.title);
       setJobDescription(job.description || "");
       setHourlyRate(job.hourlyRate || "");
+      setJobReq(job.requirement || "");
     } else {
       setJobTitle("");
       setJobDescription("");
       setHourlyRate("");
       setEditingJob(null);
+      setJobReq("");
     }
   };
 
@@ -91,7 +99,7 @@ const JobsPage = () => {
       const data = await response.json();
       if (data.success) {
         alert("JD 生成成功！");
-        fetchJobs(); 
+        navigate("/jd", { state: { jdData: data.job } });
       } else {
         alert(data.message || "生成JD失败！");
       }
@@ -102,7 +110,7 @@ const JobsPage = () => {
     }
   };
 
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     setLoading(true);
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
@@ -137,7 +145,9 @@ const JobsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  
   
   const closeModal = () => {
     setIsModalOpen(false);
@@ -146,6 +156,7 @@ const JobsPage = () => {
     setJobDescription("");
     setHourlyRate("");
     setEditingJob(null);
+    setJobReq("");
   };
 
   const saveJob = async () => {
@@ -163,6 +174,7 @@ const JobsPage = () => {
       title: jobTitle,
       description: jobDescription,
       hourlyRate: parseFloat(hourlyRate),
+      requirement: jobReq,
       id: editingJob?.id,
     };
     closeModal();
@@ -184,8 +196,70 @@ const JobsPage = () => {
       console.error("Error saving job:", error);
     } finally {
       setLoading(false);
+      navigate("/jobs", { state: null });
     }
   };
+
+  const saveGeneratedJob = useCallback(async (jobData) => {
+    console.log(jobData);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.username) {
+      alert("用户未登录，请先登录！");
+      return;
+    }
+
+    const { title, description, requirement, hourlyRate } = jobData;
+    
+    if (!title || !description || !requirement || !hourlyRate) {
+      alert("岗位数据不完整，无法保存！");
+      return;
+    }
+
+    const requestBody = {
+      title,
+      description,
+      requirement,
+      hourlyRate: parseFloat(hourlyRate),
+    };
+
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/job/add?username=${user.username}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("岗位已成功保存到数据库！");
+        fetchJobs();
+      } else {
+        alert(data.message || "保存岗位失败！");
+      }
+    } catch (error) {
+      console.error("Error saving job:", error);
+      alert("保存岗位时发生错误！");
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchJobs]);
+
+
+  useEffect(() => {
+    const jobData = location.state?.jobData;
+
+    if (jobData && !isProcessedRef.current) {
+      isProcessedRef.current = true;
+      saveGeneratedJob(jobData).then(() => {
+        navigate("/jobs", { state: null });
+      });
+    }
+  }, [location.state, navigate, saveGeneratedJob]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]); 
 
   const getTimeAgo = (createdAt) => {
     const now = new Date();
@@ -243,7 +317,7 @@ const JobsPage = () => {
           <p>你可以在这里创建工作，并且和候选者共享</p>
         </div>
         <div className="button-group">
-        <button className="create-job-button1" onClick={openJDModal}>
+        <button className="create-job-button" onClick={openJDModal}>
           <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -258,27 +332,8 @@ const JobsPage = () => {
                 d="M12 4.5v15m7.5-7.5h-15"
               />
             </svg>
-            生成JD</button>
-          <button
-            className="create-job-button"
-            onClick={() => openModal(null, true)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-            创建工作
-          </button>
+            创建工作</button>
+          
           
         </div>
         
@@ -351,7 +406,7 @@ const JobsPage = () => {
                     <button
                       className="menu-item"
                       onClick={() => {
-                        alert(`Viewing details for job: ${job.title}`);
+                        navigate(`/applicant`, { state: { title: job.title } });
                         setActiveMenu(null);
                       }}
                     >
@@ -387,6 +442,15 @@ const JobsPage = () => {
                       className="job-input"
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>岗位职责</label>
+                    <textarea
+                      placeholder="请输入工作描述"
+                      className="job-input"
+                      value={jobReq}
+                      onChange={(e) => setJobReq(e.target.value)}
                     />
                   </div>
                   <div className="form-group">

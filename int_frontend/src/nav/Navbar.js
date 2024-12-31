@@ -5,7 +5,6 @@ import './Navbar.css';
 const Navbar = ({ isLoggedIn, username, handleLogout }) => {
   return (
     <nav className="navbar">
-    
       <div className="navbar-logo">
         <Link to="/">
           <img
@@ -17,11 +16,7 @@ const Navbar = ({ isLoggedIn, username, handleLogout }) => {
         </Link>
       </div>
 
-      
       <ul className="navbar-links">
-        <li>
-          <Link to="/Interview">智能面试</Link>
-        </li>
         <li>
           <Link to="/candidates">候选人</Link>
         </li>
@@ -33,7 +28,6 @@ const Navbar = ({ isLoggedIn, username, handleLogout }) => {
         </li>
       </ul>
 
-   
       <div className="navbar-auth">
         {isLoggedIn ? (
           <div>
@@ -44,6 +38,7 @@ const Navbar = ({ isLoggedIn, username, handleLogout }) => {
           <Link to="/login" className="navbar-button">登录/注册</Link>
         )}
       </div>
+      <div className="navbar-underline"></div>
     </nav>
   );
 };

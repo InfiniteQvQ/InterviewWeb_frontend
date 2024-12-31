@@ -1,10 +1,12 @@
 .navbar {
-    background-color: white; 
-    padding: 10px 20px; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
   
   .navbar-links {
     list-style: none;
@@ -72,4 +74,14 @@
     font-size: 14px; 
     cursor: pointer;
   
+  }
+
+
+  .navbar-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, rgba(18, 140, 126, 0.2), #128C7E, rgba(18, 140, 126, 0.2));
   }

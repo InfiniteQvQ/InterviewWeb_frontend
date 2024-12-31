@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./nav/Navbar";
 import CompanyNavbar from "./nav/CompanyNavbar";
@@ -14,10 +14,19 @@ import CompanySpend from "./spend/SpendPage";
 import CompanySetting from "./setting/SettingPage";
 import JDPage from "./jobs/JDPage";
 import JobsApplicant from "./jobs/jobsApplicant";
+import Chatbot from "./components/Chatbot";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setIsLoggedIn(true);
+      setUsername(user.username);
+    }
+  }, []);
 
   const handleLogin = (user) => {
     setIsLoggedIn(true);
@@ -25,9 +34,10 @@ const App = () => {
   };
 
   const handleLogout = () => {
+    console.log("called log");
     setIsLoggedIn(false);
     setUsername("");
-    sessionStorage.removeItem("user");
+    localStorage.removeItem("user");
   };
 
   const location = useLocation();
@@ -38,6 +48,7 @@ const App = () => {
     || location.pathname === "/jobs" || location.pathname === "/spend"
     || location.pathname === "/team" || location.pathname === "/settings"
     || location.pathname === "/jd" || location.pathname === "/applicant"; ;
+  const showChatbot = !showCompanyNavbar;
 
   return (
     <>
@@ -65,6 +76,7 @@ const App = () => {
         <Route path="/jd" element={<JDPage />} />
         
       </Routes>
+      {showChatbot && <Chatbot />}
     </>
   );
 };

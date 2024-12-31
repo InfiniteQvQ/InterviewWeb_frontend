@@ -168,11 +168,11 @@ const JDPage = () => {
         </div>
 
         {/* 右侧 AI 对话框 */}
-        <div className="chat-box">
+        <div className="chat-box-job">
             <h3>调整岗位 JD</h3>
-            <div className="chat-history" ref={chatHistoryRef}>
+            <div className="chat-history-job" ref={chatHistoryRef}>
             {chatHistory.map((chat, index) => (
-                <div key={index} className={`chat-message ${chat.role}`}>
+                <div key={index} className={`chat-message-job ${chat.role}`}>
                 <p>{chat.content}</p>
                 </div>
             ))}

@@ -1,0 +1,103 @@
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 1.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slide-up 1.5s ease-in-out;
+  }
+  .front-page {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex; /* 使用 Flexbox */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+  }
+  
+  .background-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #000;
+    
+    transform: translateY(-50%);
+  }
+  
+  .headline {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .subline, .subline-english {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .highlight {
+    font-weight: bold;
+    position: relative;
+  }
+  
+  .highlight-faster::after,
+  .highlight-better::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjusted for a more prominent line */
+    height: 2px; /* Increased thickness */
+    width: 100%;
+    border-radius: 2px; /* Add rounded corners */
+    background: linear-gradient(to right, #57c9bcdc, #1e9a8be9, #128C7E); /* Subtle gradient */
+    transform: scaleX(0); /* Start at scale 0 */
+    transform-origin: left; /* Animate from left to right */
+    animation: slide-in 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; /* Smooth cubic-bezier curve */
+  }
+  
+  @keyframes slide-in {
+    0% {
+      transform: scaleX(0); /* Invisible at start */
+    }
+    50% {
+      transform: scaleX(1); /* Fully visible */
+    }
+    100% {
+      transform: scaleX(0); /* Invisible at end */
+    }
+  }
+  
+  
+  
+  
+  
+  

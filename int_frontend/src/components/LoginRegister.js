@@ -39,7 +39,7 @@ const LoginRegister = ({ onLogin }) => {
           const user = data.user;
           localStorage.setItem("user", JSON.stringify(user));
           if (onLogin) onLogin(user); 
-          navigate('/profile'); 
+          navigate('/'); 
         } else {
           alert(successMessage);
           setIsLogin(true); 

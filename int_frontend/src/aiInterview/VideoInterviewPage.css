@@ -1,0 +1,157 @@
+/* 主容器 */
+.video-int-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+  
+  /* 中间区域 */
+  .video-int-mid {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    gap: 5vw;
+    margin-top: 5vh;
+  }
+  
+  /* 左侧区域 */
+  .video-int-left-box {
+    flex: 1;
+    width:46vw;
+    height: 62.3vh;
+  }
+  
+  /* 视频预览区域 */
+  .video-int-preview {
+    width:44vw;
+    height: 50vh;
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .video-box {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* 设备选择区域 */
+.video-int-equip-select {
+    display: flex;
+    justify-content: space-between; /* 每个子项均匀分布 */
+    align-items: center; /* 垂直居中对齐 */
+    gap: 0.5vw; /* 控制组件之间的水平间距 */
+    margin-top: 5vh; /* 顶部间距 */
+    width: 100%; /* 确保容器占满宽度 */
+    flex-wrap: nowrap; /* 禁止换行 */
+    height: 4vh;
+  }
+  
+  /* 标签样式 */
+  .video-int-equip-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-right: 0.1vw; /* 增加右侧间距 */
+    width: auto;
+    white-space: nowrap; /* 防止标签换行 */
+  }
+  
+  /* 下拉框样式 */
+  .video-int-equip-select-box {
+    width: 14vw; 
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px #128c7e;
+  }
+  
+  .video-int-equip-select-box:hover {
+    border-color: #128c7e;
+  }
+  
+  
+  /* 右侧区域 */
+  .video-int-right-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    width: 40vw;
+    height: 62.3vh;
+  }
+  
+  /* 标题 */
+  .video-int-head {
+    text-align: center;
+    margin-top:10vh;
+
+  }
+  
+  .video-int-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #222;
+  }
+  .video-int-title img{
+    height: 5vw;
+    width: 5vw;
+  }
+  
+  .video-int-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* 按钮区域 */
+  .video-int-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin-top: 10vh;
+  }
+  
+  .video-int-start-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #128c7e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .video-int-start-btn:hover {
+    background-color: #0f9a6a;
+  }
+  
+  .video-int-issues-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #128c7e;
+    background-color: transparent;
+    border: 2px solid #128c7e;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .video-int-issues-btn:hover {
+    background-color: #f2f2f2;
+  }
+  

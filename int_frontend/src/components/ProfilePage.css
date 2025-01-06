@@ -1,19 +1,288 @@
+/* 1. 外层容器：通用布局 */
 .profile-container {
-    margin: 50px auto;
-    text-align: center;
-  }
+  margin-top: 1vh;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+  font-family: 'Noto Sans SC', sans-serif;
+
+}
+
+/* 2. 白色主内容区域 */
+.profile-container__mid { 
+  width: 90vw;
+  height: 65vh; /* 调整高度为 65vh */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* 左右内容顶部对齐 */
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden; /* 防止内容溢出 */
+}
+
+/* 3. 左侧部分（基本信息 + 教育经历） */
+.profile-container__left-section {
+  height: 100%; /* 适应父容器高度 */
+  width: 44vw; 
+  min-width: 0; 
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 4. 基本信息部分（不滚动） */
+.profile-container__section {
+  height: 25vh; /* 缩小高度 */
+  flex: 0 0 auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.profile-container__section h3{
+  margin-top: 0px;
+  font-size: 1.1rem; 
+}
+
+/* 5. 教育背景容器 */
+.profile-container__education-container {
+  flex: 1 1 auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* 6. 教育背景部分（可滚动） */
+.profile-container__edu-section {
+  height: 30vh; /* 调整高度以适应整体布局 */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  overflow-y: auto;   
+  padding-right: 5px; 
   
-  .profile-container button {
-    padding: 8px;
-    font-size: 14px;
-    margin-top: 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    cursor: pointer;
+}
+
+/* 7. 右侧部分：工作经历 & 保存按钮 */
+.profile-container__right-section {
+  height: 100%; 
+  width: 44vw; 
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 调整间距 */
+}
+
+/* 8. 工作经历部分（可滚动） */
+.profile-container__work-section {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  overflow-y: auto;     /* 只在内容超出时滚动 */
+  padding-right: 5px;
+}
+
+/* 9. 保存按钮容器 */
+.profile-container__save-container {
+  flex: 0 0 auto; /* 固定大小 */
+  display: flex;
+  justify-content: center; /* 居中对齐 */
+  padding: 10px 0;
+}
+
+/* 10. 教育/工作条目样式 */
+.profile-container__edu-entry,
+.profile-container__work-entry {
+  padding: 1rem;
+  border: 1px solid #128C7e;
+  border-radius: 4px;
+  display: flex;
+  font-size: 0.9rem;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 11. 删除按钮 */
+.profile-container__delete-button {
+  background-color: #128C7e;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: auto; 
+}
+
+.profile-container__delete-button:hover {
+  background-color: #33a194;
+}
+
+/* 12. 添加按钮 */
+.profile-container__add-button {
+  align-self: center;
+  background-color: #128C7e;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem; /* 调整内边距 */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.profile-container__add-button:hover {
+  background-color: #33a194;
+}
+
+/* 13. 保存按钮 */
+.profile-container__save-button {
+  background-color: #128C7e;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem; 
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.profile-container__save-button:hover {
+  background-color: #33a194;
+}
+
+/* 14. 输入错误样式 */
+.profile-container__input-error {
+  border: 2px solid #ff4d4f !important;
+}
+
+
+/* 15. 表单行、表单组公用样式 */
+.profile-container__form-row {
+  display: flex;
+  gap: 1rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.profile-container__form-group {
+  flex: 1; 
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1vh;
+  font-size: 1rem;
+}
+
+.profile-container__form-group--full-width {
+  flex: 1 1 100%;
+}
+
+.profile-container__checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.profile-container__checkbox-group label {
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.profile-container__right-section h3{
+  margin-top: 0px;
+  height: 1vh;
+}
+/* 16. 响应式设计（移动端处理） */
+@media (max-width: 768px) {
+  .profile-container__mid {
+    flex-direction: column;
+    height: auto;         /* 小屏幕可自适应高度 */
+    position: relative;   /* 保持可定位保存按钮 */
   }
-  
-  .profile-container button:hover {
-    background-color: #d32f2f;
+
+  .profile-container__left-section,
+  .profile-container__right-section {
+    flex: none;
+    width: 100%;
+    min-width: auto;
+    max-height: 300px; 
   }
-  
+
+  .profile-container__form-row {
+    flex-direction: column;
+  }
+
+  .profile-container__form-group {
+    flex-direction: column; /* 在移动端改为垂直方向 */
+    min-width: 100%;
+  }
+}
+
+/* 17. 基础输入和文本域样式 */
+.profile-container__input {
+  padding: 0.5rem;
+  border: 1px solid #128C7e;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.3s;
+  flex: 1; /* 使输入框占据剩余空间 */
+}
+
+
+.profile-container__textarea {
+  resize: none;
+  min-height: 5vh;
+  padding: 0.2rem;
+  border: 1px solid #128C7e;
+  border-radius: 4px;
+  color: #444;  
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+  flex: 1; /* 使文本域占据剩余空间 */
+  overflow: hidden;
+}
+
+
+/* 18. 自定义滚动条样式（仅在 WebKit 浏览器中有效） */
+.profile-container__edu-section::-webkit-scrollbar,
+.profile-container__work-section::-webkit-scrollbar {
+  width: 0.5vw;
+}
+
+.profile-container__edu-section::-webkit-scrollbar-track,
+.profile-container__work-section::-webkit-scrollbar-track {
+  background: #78d0c5;
+  border-radius: 4px;
+}
+
+.profile-container__edu-section::-webkit-scrollbar-thumb,
+.profile-container__work-section::-webkit-scrollbar-thumb {
+  background: #128C7e;
+  border-radius: 4px;
+}
+
+.profile-container__edu-section::-webkit-scrollbar-thumb:hover,
+.profile-container__work-section::-webkit-scrollbar-thumb:hover {
+  background: #33a194;
+}
+
+.profile-container__checkbox-group input[type="checkbox"] {
+  height: 1.2vw;
+  width: 1.2vw;
+  accent-color: #128C7E; 
+}
+
+
+.profile-date-input{
+  color: #128C7E; /* 设置字体颜色 */
+  border: 1px solid #128C7E; /* 设置边框颜色 */
+  border-radius: 4px; /* 设置圆角 */
+  font-size: 0.8rem; /* 字体大小 */
+  outline: none; /* 去除默认聚焦样式 */
+}

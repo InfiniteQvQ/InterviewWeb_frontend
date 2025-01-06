@@ -15,6 +15,8 @@ import CompanySetting from "./setting/SettingPage";
 import JDPage from "./jobs/JDPage";
 import JobsApplicant from "./jobs/jobsApplicant";
 import Chatbot from "./components/Chatbot";
+import VideoInterviewPage from "./aiInterview/VideoInterviewPage";
+import ProfilePage from "./components/ProfilePage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,7 +32,7 @@ const App = () => {
 
   const handleLogin = (user) => {
     setIsLoggedIn(true);
-    setUsername(user.username);
+    setUsername(user.username); 
   };
 
   const handleLogout = () => {
@@ -74,7 +76,8 @@ const App = () => {
         <Route path="/settings" element={<CompanySetting />} />
         <Route path="/applicant" element={<JobsApplicant />} />
         <Route path="/jd" element={<JDPage />} />
-        
+        <Route path="/int" element={<VideoInterviewPage/>}/>
+        <Route path="/profile" element={<ProfilePage/>}/>
       </Routes>
       {showChatbot && <Chatbot />}
     </>

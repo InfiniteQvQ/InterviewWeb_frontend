@@ -85,3 +85,10 @@
     height: 2px;
     background: linear-gradient(to right, rgba(18, 140, 126, 0.2), #128C7E, rgba(18, 140, 126, 0.2));
   }
+  .navbar-welcome {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 15vw; 
+    justify-content: flex-end;
+  }

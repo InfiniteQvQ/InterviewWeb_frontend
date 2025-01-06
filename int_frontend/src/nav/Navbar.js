@@ -29,14 +29,16 @@ const Navbar = ({ isLoggedIn, username, handleLogout }) => {
       </ul>
 
       <div className="navbar-auth">
-        {isLoggedIn ? (
-          <div>
-            <span>欢迎, {username}</span>
-            <button onClick={handleLogout} className="navbar-button">退出</button>
-          </div>
-        ) : (
-          <Link to="/login" className="navbar-button">登录/注册</Link>
-        )}
+        <div className="navbar-welcome">
+          {isLoggedIn ? (
+            <div>
+              <span>欢迎, {username}</span>
+              <button onClick={handleLogout} className="navbar-button">退出</button>
+            </div>
+          ) : (
+            <Link to="/login" className="navbar-button">登录/注册</Link>
+          )}
+        </div>
       </div>
       <div className="navbar-underline"></div>
     </nav>

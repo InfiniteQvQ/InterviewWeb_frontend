@@ -110,6 +110,7 @@ const CandidatesPage = () => {
         navigate(`/int`, { state: { data } }); // 跳转到目标页面并传递数据
       } else {
         setLoading(false); // 停止加载
+        console.log(response);
         alert("解析失败，请重试！");
       }
     } catch (error) {

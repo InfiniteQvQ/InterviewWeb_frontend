@@ -599,9 +599,9 @@ const ProfilePage = () => {
             {/* 第二个进度条 */}
             <div className="progress-item">
                 <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment"></div>
+                <div className="progress-bar-segment-active"></div>
                 </div>
-                <div className="progress-label ">
+                <div className="progress-label">
                 智能面试 <br /> 20 mins
                 </div>
             </div>

@@ -19,6 +19,7 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
         try {
           const response = await axios.get(`${API_BASE_URL}/search/list`);
           setCandidates(response.data);
+          console.log(candidates.imageUrl);
         } catch (error) {
           console.error("Error fetching candidates:", error);
         }finally {

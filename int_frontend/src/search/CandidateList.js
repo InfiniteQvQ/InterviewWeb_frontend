@@ -253,7 +253,6 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
                     e.target.onerror = null;   
                     e.target.src = DEFAULT_IMAGE_URL;
                 }}/>
-                {console.log("Image URL:", candidate.imageUrl)}
             </div>
             <div className="candidate-name">
               <h3>

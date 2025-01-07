@@ -92,7 +92,7 @@ const SpendFilters = () => {
               ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
               : "Select Date"}
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -129,7 +129,7 @@ const SpendFilters = () => {
           >
             Projects: All
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -160,7 +160,7 @@ const SpendFilters = () => {
           >
             团队成员: All
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -191,7 +191,7 @@ const SpendFilters = () => {
           >
             职位类型: All
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="https://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

@@ -43,7 +43,7 @@ const CompanyTeam = () => {
 
         <button className="team-search-button">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns="https://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -68,7 +68,7 @@ const CompanyTeam = () => {
             onClick={() => toggleDropdown("project")}
           >
             <span role="img" aria-label="project-icon"></span> Project
-            <svg xmlns="http://www.w3.org/2000/svg"
+            <svg xmlns="https://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -99,7 +99,7 @@ const CompanyTeam = () => {
             onClick={() => toggleDropdown("status")}
           >
             Status
-            <svg xmlns="http://www.w3.org/2000/svg"
+            <svg xmlns="https://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -126,7 +126,7 @@ const CompanyTeam = () => {
           >
             Tags
 
-            <svg xmlns="http://www.w3.org/2000/svg"
+            <svg xmlns="https://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"

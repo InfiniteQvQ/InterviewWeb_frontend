@@ -19,7 +19,6 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
         try {
           const response = await axios.get(`${API_BASE_URL}/search/list`);
           setCandidates(response.data);
-          console.log(candidates.imageUrl);
         } catch (error) {
           console.error("Error fetching candidates:", error);
         }finally {
@@ -245,6 +244,7 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
     <div>
       <div className="candidate-list">
         {currentCandidates.map((candidate) => (
+         
           <div className="candidate-card" key={candidate.id}>
             {/* 第一行：图片｜姓名 | View Profile */}
             <div className="candidate-photo">
@@ -253,6 +253,7 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
                     e.target.onerror = null;   
                     e.target.src = DEFAULT_IMAGE_URL;
                 }}/>
+                {console.log("Image URL:", candidate.imageUrl)}
             </div>
             <div className="candidate-name">
               <h3>

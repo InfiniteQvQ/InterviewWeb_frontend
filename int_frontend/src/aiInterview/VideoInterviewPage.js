@@ -37,6 +37,21 @@ const VideoInterviewPage = () => {
     }
   }, []);
 
+  const requestPermission = async () => {
+    try {
+      await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      console.log("Media permissions granted.");
+    } catch (error) {
+      console.error("Error requesting media permissions:", error);
+    }
+  };
+  
+  const getDevices = async () => {
+    await requestPermission(); // 确保先请求权限
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    console.log("Devices found:", devices);
+  };
+
   // 初始化摄像头预览
   const startPreview = useCallback(async () => {
     forceCleanupMediaTracks();
@@ -77,7 +92,7 @@ const VideoInterviewPage = () => {
     }
   }, []);
   
-
+  getDevices();
   // 清理逻辑：路由变化、页面卸载、页面隐藏
   useEffect(() => {
     getMediaDevices();

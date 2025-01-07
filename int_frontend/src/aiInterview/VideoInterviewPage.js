@@ -7,6 +7,7 @@ const VideoInterviewPage = () => {
   const location = useLocation();
   const { state } = location;
   const data = state?.data;
+
   const [devices, setDevices] = useState({
     cameras: [],
     microphones: [],
@@ -15,10 +16,11 @@ const VideoInterviewPage = () => {
   const [selectedCamera, setSelectedCamera] = useState("");
   const [selectedMicrophone, setSelectedMicrophone] = useState("");
   const [selectedSpeaker, setSelectedSpeaker] = useState("");
+
   const videoRef = useRef(null);
   const streamRef = useRef(null);
 
-  // 清理媒体资源的函数
+  // Function to clean up media tracks
   const forceCleanupMediaTracks = useCallback(() => {
     if (streamRef.current) {
       const tracks = streamRef.current.getTracks();
@@ -37,32 +39,61 @@ const VideoInterviewPage = () => {
     }
   }, []);
 
-  const requestPermission = async () => {
+  // Function to request media permissions
+  const requestPermission = useCallback(async () => {
     try {
       await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       console.log("Media permissions granted.");
     } catch (error) {
       console.error("Error requesting media permissions:", error);
     }
-  };
-  
-  const getDevices = async () => {
-    await requestPermission(); // 确保先请求权限
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    console.log("Devices found:", devices);
-  };
+  }, []);
 
-  // 初始化摄像头预览
+  // Function to get and set media devices
+  const getMediaDevices = useCallback(async () => {
+    try {
+      await requestPermission(); // Ensure permissions are granted first
+
+      const deviceInfos = await navigator.mediaDevices.enumerateDevices();
+      console.log("Devices found:", deviceInfos);
+
+      const cameras = deviceInfos.filter((device) => device.kind === "videoinput");
+      const microphones = deviceInfos.filter((device) => device.kind === "audioinput");
+      const speakers = deviceInfos.filter((device) => device.kind === "audiooutput");
+
+      setDevices({ cameras, microphones, speakers });
+
+      if (cameras.length > 0) setSelectedCamera(cameras[0].deviceId);
+      if (microphones.length > 0) setSelectedMicrophone(microphones[0].deviceId);
+      if (speakers.length > 0) setSelectedSpeaker(speakers[0].deviceId);
+    } catch (error) {
+      console.error("Error fetching devices:", error);
+    }
+  }, [requestPermission]);
+
+  // Initialize media devices on component mount
+  useEffect(() => {
+    getMediaDevices();
+
+    // Cleanup on unmount or when dependencies change
+    return () => {
+      forceCleanupMediaTracks();
+    };
+  }, [getMediaDevices, forceCleanupMediaTracks]);
+
+  // Function to start video preview
   const startPreview = useCallback(async () => {
     forceCleanupMediaTracks();
 
-    if (!selectedCamera) return;
+    if (!selectedCamera && !selectedMicrophone) return;
 
     try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { deviceId: selectedCamera },
-        audio: { deviceId: selectedMicrophone },
-      });
+      const constraints = {
+        video: selectedCamera ? { deviceId: { exact: selectedCamera } } : false,
+        audio: selectedMicrophone ? { deviceId: { exact: selectedMicrophone } } : false,
+      };
+
+      const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
 
       streamRef.current = mediaStream;
       if (videoRef.current) {
@@ -73,30 +104,19 @@ const VideoInterviewPage = () => {
     }
   }, [forceCleanupMediaTracks, selectedCamera, selectedMicrophone]);
 
-  // 获取媒体设备
-  const getMediaDevices = useCallback(async () => {
-    try {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      console.log("Devices found:", devices);
-      const cameras = devices.filter((device) => device.kind === "videoinput");
-      const microphones = devices.filter((device) => device.kind === "audioinput");
-      const speakers = devices.filter((device) => device.kind === "audiooutput");
-  
-      setDevices({ cameras, microphones, speakers });
-  
-      if (cameras.length > 0) setSelectedCamera(cameras[0].deviceId);
-      if (microphones.length > 0) setSelectedMicrophone(microphones[0].deviceId);
-      if (speakers.length > 0) setSelectedSpeaker(speakers[0].deviceId);
-    } catch (error) {
-      console.error("Error fetching devices:", error);
-    }
-  }, []);
-  
-  getDevices();
-  // 清理逻辑：路由变化、页面卸载、页面隐藏
+  // Start preview whenever selectedCamera or selectedMicrophone changes
   useEffect(() => {
-    getMediaDevices();
+    if (selectedCamera || selectedMicrophone) {
+      startPreview();
+    }
 
+    return () => {
+      forceCleanupMediaTracks();
+    };
+  }, [startPreview, forceCleanupMediaTracks, selectedCamera, selectedMicrophone]);
+
+  // Handle page unload and visibility changes
+  useEffect(() => {
     const handleBeforeUnload = () => {
       forceCleanupMediaTracks();
     };
@@ -111,19 +131,10 @@ const VideoInterviewPage = () => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      forceCleanupMediaTracks();
       window.removeEventListener("beforeunload", handleBeforeUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [getMediaDevices, forceCleanupMediaTracks]);
-
-  // 更新摄像头预览
-  useEffect(() => {
-    startPreview();
-    return () => {
-      forceCleanupMediaTracks();
-    };
-  }, [startPreview, forceCleanupMediaTracks]);
+  }, [forceCleanupMediaTracks]);
 
   const handleStartInterview = () => {
     forceCleanupMediaTracks();
@@ -133,7 +144,6 @@ const VideoInterviewPage = () => {
   const handleSkip = () => {
     forceCleanupMediaTracks();
     console.log(data);
-    
     navigate("/profile", { state: { data: data.data } });
   };
 
@@ -141,7 +151,7 @@ const VideoInterviewPage = () => {
     <div className="video-int-container">
       <div className="video-int-mid">
         <div className="video-int-left-box">
-          {/* 视频预览 */}
+          {/* Video Preview */}
           <div className="video-int-preview">
             <video
               ref={videoRef}
@@ -152,7 +162,7 @@ const VideoInterviewPage = () => {
             />
           </div>
 
-          {/* 设备选择 */}
+          {/* Device Selection */}
           <div className="video-int-equip-select">
             <div className="video-int-equip-item">
               <label className="video-int-equip-label">摄像头：</label>
@@ -221,39 +231,36 @@ const VideoInterviewPage = () => {
       </div>
 
       <div className="progress-bar-container">
-        {/* 第一个进度条 */}
-            <div className="progress-item">
-                <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment-active"></div>
-                </div>
-                <div className="progress-label">
-                上传简历 <br /> 2 mins
-                </div>
-            </div>
-
-            {/* 第二个进度条 */}
-            <div className="progress-item">
-                <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment animate"></div>
-                </div>
-                <div className="progress-label active-label">
-                智能面试 <br /> 20 mins
-                </div>
-            </div>
-
-            {/* 第三个进度条 */}
-            <div className="progress-item">
-                <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment"></div>
-                </div>
-                <div className="progress-label">
-                完善信息 <br /> 5 mins
-                </div>
-            </div>
+        {/* First Progress Bar */}
+        <div className="progress-item">
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar-segment-active"></div>
+          </div>
+          <div className="progress-label">
+            上传简历 <br /> 2 mins
+          </div>
         </div>
 
-        
+        {/* Second Progress Bar */}
+        <div className="progress-item">
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar-segment animate"></div>
+          </div>
+          <div className="progress-label active-label">
+            智能面试 <br /> 20 mins
+          </div>
+        </div>
 
+        {/* Third Progress Bar */}
+        <div className="progress-item">
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar-segment"></div>
+          </div>
+          <div className="progress-label">
+            完善信息 <br /> 5 mins
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

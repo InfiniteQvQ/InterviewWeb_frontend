@@ -37,7 +37,7 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
   const indexOfLastCandidate = currentPage * candidatesPerPage;
   const indexOfFirstCandidate = indexOfLastCandidate - candidatesPerPage;
   const currentCandidates = candidatesToShow.slice(indexOfFirstCandidate, indexOfLastCandidate);
-  const DEFAULT_IMAGE_URL = "https://18.117.97.107:8080/images/emp.jpg";
+  const DEFAULT_IMAGE_URL = `${API_BASE_URL}/images/emp.jpg`;
  
   const totalPages = Math.ceil(candidatesToShow.length / candidatesPerPage);
 

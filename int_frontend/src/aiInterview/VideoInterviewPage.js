@@ -62,14 +62,13 @@ const VideoInterviewPage = () => {
   const getMediaDevices = useCallback(async () => {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices();
+      console.log("Devices found:", devices);
       const cameras = devices.filter((device) => device.kind === "videoinput");
-      const microphones = devices.filter(
-        (device) => device.kind === "audioinput"
-      );
+      const microphones = devices.filter((device) => device.kind === "audioinput");
       const speakers = devices.filter((device) => device.kind === "audiooutput");
-
+  
       setDevices({ cameras, microphones, speakers });
-
+  
       if (cameras.length > 0) setSelectedCamera(cameras[0].deviceId);
       if (microphones.length > 0) setSelectedMicrophone(microphones[0].deviceId);
       if (speakers.length > 0) setSelectedSpeaker(speakers[0].deviceId);
@@ -77,6 +76,7 @@ const VideoInterviewPage = () => {
       console.error("Error fetching devices:", error);
     }
   }, []);
+  
 
   // 清理逻辑：路由变化、页面卸载、页面隐藏
   useEffect(() => {

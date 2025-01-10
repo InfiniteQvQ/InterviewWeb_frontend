@@ -431,7 +431,7 @@ const ResumePage = () => {
       handleRegenerate();
       setInitialLoadComplete(true);
     }
-  }, [dataLoaded, initialLoadComplete]);
+  }, [dataLoaded, initialLoadComplete, handleRegenerate]);
 
   if (loading) {
     return <div className="resume-page__loading">加载中...</div>;

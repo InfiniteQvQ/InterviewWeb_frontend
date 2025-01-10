@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef,useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./ResumePage.css";
 import API_BASE_URL from "../config/apiConfig";
@@ -15,8 +15,6 @@ const icons = {
     影响: impactIcon,
     结构: sectionsIcon,
   };
-
-  
 
 const ResumePage = () => {
     const circleRef = useRef(null);
@@ -190,12 +188,6 @@ const ResumePage = () => {
       { id: null, position: "", start_date: "", end_date: "", company_name: "", description: "", eval: "" },
     ]);
   };
-  useEffect(() => {
-    console.log('ResumePage Mounted');
-    return () => {
-      console.log('ResumePage Unmounted');
-    };
-  }, []);
   
   const handleDeleteWork = (index) => {
     const newWork = work.filter((_, i) => i !== index);

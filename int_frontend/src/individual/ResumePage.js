@@ -34,8 +34,8 @@ const ResumePage = () => {
   const [highlights, setHighlights] = useState([]);
 
   const [profile, setProfile] = useState({
-    firstName: "",
-    lastName: "",
+    //firstName: "",
+    //lastName: "",
     email: "",
     phone: "",
     location: "",
@@ -84,8 +84,8 @@ const ResumePage = () => {
 
         // 设置 Profile
         setProfile({
-          firstName: data.profile?.firstName || "",
-          lastName: data.profile?.lastName || "",
+          //firstName: data.profile?.firstName || "",
+          //lastName: data.profile?.lastName || "",
           email: data.profile?.user?.email || "",
           phone: data.profile?.phone || "",
           location: data.profile?.location ? data.profile.location : "",

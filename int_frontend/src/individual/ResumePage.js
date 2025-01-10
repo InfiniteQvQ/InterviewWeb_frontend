@@ -427,11 +427,15 @@ const ResumePage = () => {
   };
 
   useEffect(() => {
-    if (dataLoaded && !initialLoadComplete) {
-      handleRegenerate();
-      setInitialLoadComplete(true);
-    }
-  }, [dataLoaded, initialLoadComplete, handleRegenerate]);
+    const initialRegenerate = async () => {
+      if (dataLoaded && !initialLoadComplete) {
+        await handleRegenerate();
+        setInitialLoadComplete(true);
+      }
+    };
+    initialRegenerate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataLoaded, initialLoadComplete]); 
 
   if (loading) {
     return <div className="resume-page__loading">加载中...</div>;

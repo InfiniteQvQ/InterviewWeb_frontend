@@ -10,7 +10,7 @@ const IndividualPage = ({ onBack }) => {
 
   // 从 localStorage 获取用户名
   const username = JSON.parse(localStorage.getItem("username")) || "User";
-
+  console.log(username);
   useEffect(() => {
     if (!username) {
       console.error("用户名未找到");
@@ -20,6 +20,7 @@ const IndividualPage = ({ onBack }) => {
 
     // 页面加载时发送请求获取候选人详情
     const fetchCandidateDetails = async () => {
+      const username = JSON.parse(localStorage.getItem("username")) || "User";
       try {
         const response = await axios.get(`${API_BASE_URL}/search/finduser?username=${username}`);
         setCandidateDetails(response.data);

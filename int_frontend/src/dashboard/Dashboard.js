@@ -12,7 +12,8 @@ const PersonalDashboard = () => {
         navigate("/blog"); 
       };
       
-    const username = JSON.parse(localStorage.getItem("username")) || "User";
+      const user = JSON.parse(localStorage.getItem("user"));
+      const username = user?.username || "Guest";
   return (
     <div className="dashboard-container">
       <h1 className="welcome-text">欢迎回来, {username}</h1>

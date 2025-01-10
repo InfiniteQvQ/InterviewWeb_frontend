@@ -29,14 +29,16 @@
 
 .candidate-title {
 
-    font-size: 3.3rem;
+    
+    font-size: clamp(2rem, 4vw, 3.3rem);
+
     font-weight: bold;
     line-height: 1.5;
 
 }
 
 .candidate-subtitle {
-    font-size: 1.3rem;
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
     color: #777;
     margin-top: 2vh;
     line-height: 1.3;

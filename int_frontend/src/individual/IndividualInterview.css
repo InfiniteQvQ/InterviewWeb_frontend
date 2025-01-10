@@ -1,0 +1,121 @@
+/* 容器 */
+.interview-dashboard-container {
+    font-family: sans-serif;
+    padding: 2rem;
+    max-width: 80vw;
+    margin-left: 10vw;
+  }
+  
+  .interview-welcome-text {
+    font-size: 1.5rem;
+    color: #222;
+    font-weight: 900;
+    margin-bottom: 1rem;
+  }
+  
+  /* 重要事项标题 */
+  .interview-section-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  
+  .interview-task-cards {
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    gap: 1rem; /* 卡片之间的间距 */
+  }
+  
+  /* 卡片样式 */
+  .interview-task-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    width: calc(25%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; 
+    
+    justify-content: space-between;
+  }
+  
+  .interview-card-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18vh;
+    background: linear-gradient(to bottom, #5cf5c7, #f7fffe);
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .interview-card-logo {
+    width: 8vh; 
+    height: 8vh;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .interview-logo-icon {
+    width: 5vh;
+    height: 5vh;
+  }
+  
+  /* 卡片内容 */
+  .interview-card-body {
+    margin-top:0.5rem;
+    margin-left: 1rem;
+  }
+  
+  .interview-card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    color: #333333;
+  }
+  
+  .interview-card-description {
+    font-size: 0.875rem;
+    color: #666666;
+    margin-top:10px;
+  }
+  
+  /* 卡片底部 */
+  .interview-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+  }
+  
+  .interview-card-time {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    border: 1px solid #c1c1c1;
+    border-radius:4px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    padding: 0.2rem 0.4rem;
+    color: #222;
+  }
+  
+  .time-icon {
+    width: 2vh;
+    height: 2vh;
+    margin-right: 0.5rem;
+  }
+  
+  .interview-card-difficulty {
+    background: #fdf2ce;
+    color: #b28900;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+  }
+  
+  

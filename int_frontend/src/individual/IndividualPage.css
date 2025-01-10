@@ -1,0 +1,73 @@
+.individual-page {
+    width: 80vw;
+    height: 100vh;
+    margin-left:15vw;
+    margin-top:2vh;
+    font-size: 1.1rem;
+    padding:2rem;
+}
+
+
+.candidate-detail-card-new {
+    width: 70vw;
+    max-width: 70vw; /* 控制详情卡片的最大宽度，随需调整 */
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+
+
+  .detail-skill-tag-new {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #f5faff;
+    color: #128C7E;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 12px;
+  }
+
+  .video-placeholder-new {
+    width: 68vw;
+    height: 50vh;
+    background-color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #666;
+    font-size: 14px;
+  }
+
+
+  /* CandidateList.css */
+  .loading-new {
+    position: absolute;
+    margin-left:35vw;
+    margin-top:30vh;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #128C7E;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

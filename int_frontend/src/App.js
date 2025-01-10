@@ -17,6 +17,11 @@ import JobsApplicant from "./jobs/jobsApplicant";
 import Chatbot from "./components/Chatbot";
 import VideoInterviewPage from "./aiInterview/VideoInterviewPage";
 import ProfilePage from "./components/ProfilePage";
+import PersonalDashboard from "./dashboard/Dashboard";
+import IndividualPage from "./individual/IndividualPage";
+import PersonalNavbar from "./nav/PersonalNavbar";
+import ResumePage from "./individual/ResumePage";
+import IndividualInterview from "./individual/IndividualInterview";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,19 +48,33 @@ const App = () => {
   };
 
   const location = useLocation();
+  const companyPaths = [
+    "/companies",
+    "/search",
+    "/jobs",
+    "/spend",
+    "/team",
+    "/settings",
+    "/jd",
+    "/applicant",
+  ];
 
-  // 控制是否显示 CompanyNavbar
-  const showCompanyNavbar =
-    location.pathname === "/companies" || location.pathname === "/search" 
-    || location.pathname === "/jobs" || location.pathname === "/spend"
-    || location.pathname === "/team" || location.pathname === "/settings"
-    || location.pathname === "/jd" || location.pathname === "/applicant"; ;
-  const showChatbot = !showCompanyNavbar;
+  const personalPaths = [
+    "/personalprofile",
+    "/personalresume", 
+    "/dashboard",
+    "/blog",
+  ];
 
+  const showPersonalNavbar = personalPaths.includes(location.pathname);
+  const showCompanyNavbar = companyPaths.includes(location.pathname) && !showPersonalNavbar;
+  const showChatbot = !showCompanyNavbar && !showPersonalNavbar;
   return (
     <>
    
-      {showCompanyNavbar ? (
+      {showPersonalNavbar ? (
+        <PersonalNavbar username={username} handleLogout={handleLogout} />
+      ) : showCompanyNavbar ? (
         <CompanyNavbar />
       ) : (
         <Navbar isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} />
@@ -78,6 +97,10 @@ const App = () => {
         <Route path="/jd" element={<JDPage />} />
         <Route path="/int" element={<VideoInterviewPage/>}/>
         <Route path="/profile" element={<ProfilePage/>}/>
+        <Route path="/dashboard" element={<PersonalDashboard />}/>
+        <Route path="/personalprofile" element={<IndividualPage />}/>
+        <Route path="/personalresume" element={<ResumePage/>} />
+        <Route path="/blog" element={<IndividualInterview />}/>
       </Routes>
       {showChatbot && <Chatbot />}
     </>

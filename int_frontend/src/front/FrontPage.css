@@ -34,7 +34,7 @@
     overflow: hidden;
     display: flex; 
     justify-content: flex-start;
-    margin-left:10vw;
+    margin-left:5vw;
     align-items: center; 
     font-family: 'Noto Serif SC', serif;
     
@@ -54,7 +54,7 @@
     z-index: 2;
     display: flex;
     flex-direction: column; 
-    gap: 30px; /* 每个内容块之间的间距 */
+    gap: 1rem; /* 每个内容块之间的间距 */
     margin-bottom: 10vw;
   }
 
@@ -63,14 +63,14 @@
   }
 
   .headline {
-    font-size: 2.5em;
+    font-size: clamp(1.2rem, 2.6vw, 2.3rem);
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
   
   .subline,
     .subline-english {
-    font-size: 1.5em;
+        font-size: clamp(1rem, 1.8vw, 1.5rem);
     margin-bottom: 10px;
     }
   .highlight {

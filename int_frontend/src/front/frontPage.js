@@ -47,7 +47,7 @@ const FrontPage = () => {
     const initializePlanet = () => {
       const vw = window.innerWidth / 100; // 每 vw 单位像素值
       planet.size = vw * 35; // 将星球大小设置为 35vw
-      planet.x = canvas.width * 0.7; // 星球 x 位置
+      planet.x = canvas.width * 0.75; // 星球 x 位置
       planet.y = canvas.height * 0.43; // 星球 y 位置
       // 初始化旋转星环线段
       stars.length = 0; // 清空旧的星环线段
@@ -62,7 +62,7 @@ const FrontPage = () => {
           speed: 0.0003, // 随机旋转速度，较慢的速度
           length: 1 * 5 + 2, // 线段长度
           width: 1 * 5 + 2, // 线段宽度，增加厚度
-          alpha: 0.9, // 透明度
+          alpha: 0.95, // 透明度
           gradientColors: gradientChoice, // 预先选择的渐变颜色
           orbitIndex, // 轨道索引
         });
@@ -142,7 +142,7 @@ const FrontPage = () => {
             color
           );
         });
-
+        ctx.globalAlpha = star.alpha;
         // 绘制星环线段为线段
         ctx.strokeStyle = gradient; // 使用 gradient，而不是 star.gradient
         ctx.lineWidth = star.width; // 设置线宽，使星环线段更粗
@@ -152,7 +152,7 @@ const FrontPage = () => {
         ctx.lineTo(endX, endY);
         ctx.stroke();
       });
-
+      ctx.globalAlpha = 1; // 重置透明度
       // 绘制星球
       drawPlanet();
 
@@ -183,7 +183,7 @@ const FrontPage = () => {
             color
           );
         });
-
+        ctx.globalAlpha = star.alpha;
         // 绘制星环线段为线段
         ctx.strokeStyle = gradient; // 使用 gradient，而不是 star.gradient
         ctx.lineWidth = star.width; // 设置线宽，使星环线段更粗
@@ -294,18 +294,20 @@ const FrontPage = () => {
       <canvas ref={canvasRef} className="background-canvas"></canvas>
       <div className="content">
         <div className="content-section">
-          <h1 className="headline animate-fade-in">FreeCareer</h1>
-          <h1 className="headline animate-fade-in">真正下一代的求职助手</h1>
-          <p className="subline animate-slide-up">
-            可以 <span className="highlight highlight-faster"> 更快</span> 
+          <h1 className="headline animate-fade-in">Freeca致力于成为</h1>
+          <h1 className="headline animate-fade-in">AI驱动的下一代求职助手</h1>
+          <p className="subline animate-slide-up">真正做到帮你
+            <span className="highlight highlight-faster"> 更智能</span> 
+            <span className="highlight highlight-faster"> 更快</span> 
             , <span className="highlight highlight-better"> 更好</span> 
-            地帮你匹配工作机会
+            地找到属于你的机会
           </p>
         </div>
         <div className="content-section">
-          <p className="subline-english animate-slide-up">The next-generation job assistant</p>
+          <p className="subline-english animate-slide-up">The AI-powered next-generation job assistant</p>
           <p className="subline-english animate-slide-up">
-            Helping you find opportunities 
+          Helping you find opportunities 
+          <span className="highlight highlight-faster"> smarter</span>,
             <span className="highlight highlight-faster"> faster</span> and 
             <span className="highlight highlight-better"> better</span>.
           </p>

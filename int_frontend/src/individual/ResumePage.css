@@ -1,0 +1,469 @@
+/* 整体布局 */
+.resume-page {
+    display: flex;
+    width: 93vw;
+    margin-left: 7vw;
+    padding: 2rem;
+    box-sizing: border-box;
+    font-family: 'Noto Serif SC', serif;
+    height: 100vh;
+    gap: 1rem;
+  }
+  
+  /* 左侧评分区域 */
+  .resume-page__left {
+    width: 33vw;
+    padding-right: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    height: 100%;
+  }
+ 
+  
+  .resume-page__left::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .resume-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .regenerate-btn {
+    background-color: white;
+    color: #222;
+    font-weight: 700;
+    border: 1px solid #888;
+    padding: 0.5rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  /* Score Section */
+  .resume-score-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .score-circle {
+    width: 4rem; /* 圆圈大小 */
+    height: 4rem;
+    border-radius: 50%; /* 确保为圆形 */
+    background: conic-gradient(#128C7E var(--target-progress), #e5e7eb 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    
+  }
+
+  .score-circle::before {
+    content: "";
+    width: 80%; /* 内圈相对于外圈大小 */
+    height: 80%;
+    background: white; /* 中间空白区域颜色 */
+    border-radius: 50%; /* 确保为圆形 */
+    position: absolute;
+  }
+  .score-number {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #128C7E; /* 数字颜色 */
+    z-index: 1; /* 确保数字在最上层 */
+  }  
+  
+  .score-description p {
+    margin: 0.5rem 0;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.5;
+  }
+  
+  .score-description .highlight-score {
+    font-weight: bold;
+    color: #128C7E;
+  }
+  
+  /* Scoring Details */
+  .resume-page__scores {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 根据需要调整间距 */
+}
+
+.resume-score-item {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.score-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score-item__label {
+    display: flex;
+    align-items: center;
+}
+
+.score-item-icon {
+    width: 24px; /* 根据需要调整大小 */
+    height: 24px;
+    margin-right: 8px;
+}
+
+.score-item-text {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.score-item__value-container {
+    display: flex;
+    align-items: center;
+}
+
+.score-item__value {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.score-green {
+    color: #128C7E;
+    font-weight: 900;
+    background-color: #e8fff3;
+    padding: 4px 8px;
+    border-radius: 10px;
+    border: 1px solid #5bc0b4;
+}
+
+.score-yellow {
+    color: rgb(161, 116, 1);
+    font-weight: 900;
+    background-color: rgb(252, 246, 227);
+    padding: 4px 8px;
+    border-radius: 10px;
+    border: 1px solid rgb(234, 207, 141);
+}
+
+.score-red {
+    color: rgb(195, 53, 53);
+    background-color: rgb(255, 239, 235);
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 10px;
+    border: 1px solid rgb(201, 93, 93);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icon {
+    width: 16px; /* 根据需要调整大小 */
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn.rotated .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* 详细信息部分 */
+.score-item-details {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+.score-item-details p {
+    margin: 0;
+    color: #555;
+}
+
+  
+
+  .resume-highlights {
+    margin-top: 2rem;
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e5e7eb; /* 边框颜色 */
+    border-radius: 8px; /* 圆角 */
+    background-color: #ffffff; /* 背景颜色 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 添加阴影 */
+    margin-bottom: 1rem; /* 每个 item 的间距 */
+  }
+  
+  
+  .highlight-icon {
+    width: 24px; /* 图标宽度 */
+    height: 24px; /* 图标高度 */
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem; /* 与文本的间距 */
+  }
+  .highlight-content {
+    color: #111827; /* 文本颜色 */
+    line-height: 1.5;
+  }
+  
+  .highlight-content strong {
+    font-size: 1rem; /* 加粗文本字体大小 */
+    color: #000000; /* 加粗文本颜色 */
+  }
+  
+  /* 垂直分界线 */
+  .resume-page__divider {
+    width: 1px;
+    background-color: #ddd;
+    height: 100%;
+  }
+  
+  /* 右侧信息区域 */
+  .resume-page__right {
+    width: 57vw;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    height: 100%;
+  }
+  
+  .resume-page__right::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .res-section {
+    margin-bottom: 2rem;
+  }
+  
+  .res-section h3 {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 0.5rem;
+    font-size:1.4rem;
+    font-weight: 900;
+  }
+  
+  .res-form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .res-form-group-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem; /* 控制表单项之间的间距 */
+    margin-bottom: 1rem;
+  }
+
+  .res-form-group label {
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+  }
+  
+  .res-form-group input,
+  .res-form-group textarea,
+  .res-form-group select {
+    padding: 0.5rem;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+  }
+
+.res-form-group input:focus,
+.res-form-group textarea:focus,
+.res-form-group select:focus {
+  border: 2px solid #128C7E;
+  box-shadow: 0 0 5px rgba(81, 206, 191, 0.5); /* 添加轻微的绿色光晕 */
+  outline: none;
+}
+  
+  .res-form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dedddd;
+    border-radius: 8px;
+    resize: none; 
+    overflow: hidden;
+    box-sizing: border-box;
+    line-height: 1.5;
+    font-family: inherit; 
+  }
+  
+  
+  
+  .edu-entry,
+  .work-entry {
+    
+    margin-bottom: 1rem;
+  }
+  
+  .res-delete-btn {
+    color: #666;
+    font-weight: 300;
+    border:none;
+    background-color: white;
+    cursor: pointer;
+    align-self: flex-end;
+    font-size:1.1rem; 
+    margin-top: 0.5rem;
+    margin-bottom:0.2rem;
+  }
+  
+  .res-add-btn {
+    background-color: white;
+    color: #128C7E;
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .res-save-container {
+    text-align: center;
+  }
+  
+  .res-save-btn {
+    background-color: #128C7E;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .res-save-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .res-save-error {
+    color: #ff4d4d;
+    margin-top: 0.5rem;
+  }
+  
+  /* 隐藏滚动条但允许滚动 */
+  .resume-page__left {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .resume-page__left::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .resume-page__right {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .resume-page__right::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  /* Skills Section */
+  /* 整体容器 */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  /* 标签样式 */
+  .skill-tag {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0.8rem;
+    background-color: #ddf5e6;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    color: #128C7E;
+    font-weight:900;
+    gap: 0.5rem;
+  }
+  
+  /* 删除按钮 */
+  .skill-delete-btn {
+    background: none;
+    border: none;
+    color: #128C7E;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .skill-delete-btn:hover {
+    color: #ed4848;
+    background-color: rgb(254, 227, 227);
+  }
+  
+  /* 输入框 */
+  .skill-input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    min-width: 2vw;
+    color: #128C7E;
+    background: transparent;
+  }
+  
+  
+  /* 加载和错误状态 */
+  .resume-page__loading,
+  .resume-page__error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+    color: #555;
+  }
+  
+  .res-error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+  }
+
+input.res-error,
+textarea.res-error,
+.skill-input.res-error {
+  border: 1px solid red;
+}
+
+  

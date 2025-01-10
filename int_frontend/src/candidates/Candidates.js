@@ -130,7 +130,7 @@ const CandidatesPage = () => {
     <div className="candidate-container">
       <div className="top-candidate">
         <div className="left-head">
-          <div className="candidate-title">加入FreeCareer</div>
+          <div className="candidate-title">加入Freeca</div>
           <div className="candidate-title">
             助力成为{" "}
             <span style={{ color: "#128C7E" }}>

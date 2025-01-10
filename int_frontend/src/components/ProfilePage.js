@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./ProfilePage.css";
+import API_BASE_URL from "../config/apiConfig";
+import axios from "axios"; 
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const ProfilePage = () => {
       is_full_time: false,
     },
     edu: [],
+    skills: [],
     work: [],
     errors: {
       profile: {},
@@ -40,11 +43,6 @@ const ProfilePage = () => {
     return defaultData; // 如果没有传递数据，使用默认空数据
   });
 
-  /**
-   * 当用户输入 "2024-07" (即 yyyy-MM) 时，自动补成 "2024-07-01"
-   * 如果输入了 "2024-07-18" 这种正常格式，则保持不变
-   * 如果为空，就返回一个默认值 "2023-01-01"（可自行更改）
-   */
   /**
    * 当用户输入各种不完整的日期时，自动补全：
    * 1. yyyy-MM-dd => 原样返回
@@ -86,7 +84,6 @@ const ProfilePage = () => {
     return `${yyyy}-${mm}-${dd}`;
   };
 
-
   const hasAnyErrors = (errors) => {
     // 1. 检查 profile 里的属性
     const profileHasError = Object.values(errors.profile || {}).some(Boolean);
@@ -104,14 +101,61 @@ const ProfilePage = () => {
     return profileHasError || eduHasError || workHasError;
   };
 
-  const handleSavebtn = () => {
-    // 如果还有错误，弹出提示
+  const handleSavebtn = async () => {
+    // 检查是否有错误
     if (hasAnyErrors(data.errors)) {
       alert("需要填写数值");
-    } else {
-      // 没有错误，则保存并跳转
-      alert("保存成功");
-      navigate("/"); // 跳转到首页
+      return;
+    }
+  
+    try {
+      // 从 localStorage 获取用户信息
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user || !user.id) {
+        alert("用户未登录，请先登录");
+        return;
+      }
+  
+      // 构造请求数据
+      const payload = {
+        profile: {
+          ...data.profile,
+          user_id: user.id, // 添加 user ID
+        },
+        edu: data.edu.map((eduItem) => ({
+          ...eduItem,
+          user_id: user.id, // 添加 user ID
+        })),
+        work: data.work.map((workItem) => ({
+          ...workItem,
+          user_id: user.id, // 添加 user ID
+        })),
+        skills: data.skills.map((skillItem) => ({
+          ...skillItem,
+          user_id: user.id, // 添加 user ID
+        })),
+      };
+      console.log(payload);
+      // 使用 axios 发送 POST 请求
+      const response = await axios.post(
+        `${API_BASE_URL}/resume/add`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        alert("保存成功");
+        navigate("/"); // 跳转到首页
+      } else {
+        alert("保存失败，请稍后重试");
+      }
+    } catch (error) {
+      console.error("保存失败:", error);
+      alert("保存失败，请稍后重试");
     }
   };
 
@@ -187,7 +231,6 @@ const ProfilePage = () => {
     const updatedWork = data.work.filter((_, i) => i !== index);
     setData((prevData) => ({ ...prevData, work: updatedWork }));
   };
-
 
   // ============ 校验必填项, 只保留一段 useEffect =============
   useEffect(() => {
@@ -434,7 +477,7 @@ const ProfilePage = () => {
                     <div className="profile-container__form-group">
                       <label htmlFor={`eval_edu_${index}`}>评价:</label>
                       <span>{eduItem.eval}</span>
-                      {/* 如果要让用户输入评价，可改成： 
+                      {/* 如果要让用户输入评价，可改成：
                           <input
                             type="text"
                             value={eduItem.eval}
@@ -587,35 +630,35 @@ const ProfilePage = () => {
       {/* 进度条 */}
       <div className="progress-bar-container">
         {/* 第一个进度条 */}
-            <div className="progress-item">
-                <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment-active"></div>
-                </div>
-                <div className="progress-label">
-                上传简历 <br /> 2 mins
-                </div>
-            </div>
-
-            {/* 第二个进度条 */}
-            <div className="progress-item">
-                <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment-active"></div>
-                </div>
-                <div className="progress-label">
-                智能面试 <br /> 20 mins
-                </div>
-            </div>
-
-            {/* 第三个进度条 */}
-            <div className="progress-item">
-                <div className="progress-bar-wrapper">
-                <div className="progress-bar-segment animate"></div>
-                </div>
-                <div className="progress-label active-label">
-                完善信息 <br /> 5 mins
-                </div>
-            </div>
+        <div className="progress-item">
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar-segment-active"></div>
+          </div>
+          <div className="progress-label">
+            上传简历 <br /> 2 mins
+          </div>
         </div>
+
+        {/* 第二个进度条 */}
+        <div className="progress-item">
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar-segment-active"></div>
+          </div>
+          <div className="progress-label">
+            智能面试 <br /> 20 mins
+          </div>
+        </div>
+
+        {/* 第三个进度条 */}
+        <div className="progress-item">
+          <div className="progress-bar-wrapper">
+            <div className="progress-bar-segment animate"></div>
+          </div>
+          <div className="progress-label active-label">
+            完善信息 <br /> 5 mins
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

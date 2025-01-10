@@ -60,7 +60,8 @@ const ResumePage = () => {
   const [saveError, setSaveError] = useState(null); // 保存错误
 
   // 假设您已经获取了当前用户名，例如从登录状态或其他方式
-  const username = JSON.parse(localStorage.getItem("username")) || "User";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const username = user?.username || "Guest";
 
   // 获取简历数据
   useEffect(() => {

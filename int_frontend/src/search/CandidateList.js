@@ -248,11 +248,15 @@ const CandidateList = ({candidates: externalCandidates,loading2 }) => {
           <div className="candidate-card" key={candidate.id}>
             {/* 第一行：图片｜姓名 | View Profile */}
             <div className="candidate-photo">
-                <img src={candidate.imageUrl} alt="Candidate" className="photo"
-                onError={(e) => {
-                    e.target.onerror = null;   
-                    e.target.src = DEFAULT_IMAGE_URL;
-                }}/>
+              <img
+                  src={candidate.imageUrl || DEFAULT_IMAGE_URL} 
+                  alt="Candidate"
+                  className="photo"
+                  onError={(e) => {
+                      e.target.onerror = null;   
+                      e.target.src = DEFAULT_IMAGE_URL; 
+                  }}
+              />
             </div>
             <div className="candidate-name">
               <h3>

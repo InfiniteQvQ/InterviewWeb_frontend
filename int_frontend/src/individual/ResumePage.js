@@ -20,6 +20,8 @@ const icons = {
 
 const ResumePage = () => {
     const circleRef = useRef(null);
+    const [dataLoaded, setDataLoaded] = useState(false); 
+    const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const [resumeScore, setResumeScore] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [newSkill, setNewSkill] = useState("");
@@ -122,12 +124,14 @@ const ResumePage = () => {
           })) || []
         );
         console.log(data);
-       
+        setDataLoaded(true);
         setLoading(false);
+        
       } catch (err) {
         console.error("获取简历数据失败:", err);
         setError("无法加载简历数据，请稍后重试。");
         setLoading(false);
+        setDataLoaded(false); 
       }
     };
 
@@ -152,6 +156,12 @@ const ResumePage = () => {
     }));
   };
 
+  useEffect(() => {
+    if (dataLoaded && !initialLoadComplete) {
+      handleRegenerate(); // 只有在数据加载完成后才调用
+      setInitialLoadComplete(true);
+    }
+  }, [dataLoaded, initialLoadComplete, handleRegenerate]);
 
   // 处理教育经历变化
   const handleEduChange = (index, field, value) => {
@@ -337,9 +347,15 @@ const ResumePage = () => {
   };
 
   const handleRegenerate = useCallback(async () => {
-    setLoading(true); 
+    
+    
     try {
       // 构造请求数据，缺失的信息设置为 null
+      if (!dataLoaded) {
+        console.warn("数据尚未加载完成，handleRegenerate 未执行");
+        return;
+      }
+      setLoading(true); 
       const payload = {
         education: education.map((edu) => ({
           id: edu.id || null,
@@ -415,7 +431,7 @@ const ResumePage = () => {
       alert("简历评估失败，请稍后重试！");
       setLoading(false); // 隐藏加载状态
     }
-  }, [education, work, skills]);
+  }, [dataLoaded, education, work, skills]);
 
   useEffect(() => {
     // 当 education/work/skills 更新后，且不为空时，执行评估

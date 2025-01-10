@@ -299,8 +299,6 @@ const ResumePage = () => {
     setSaveError(null);
     try {
       const payload = {
-        resumeScore,
-        resumeDetails,
         profile: {
           ...profile,
           location: `${profile.location}`,
@@ -357,6 +355,7 @@ const ResumePage = () => {
           major: edu.major || null,
           startDate: edu.start_date || null,    // 修改为 snake_case
           endDate: edu.end_date || null, 
+          eval: edu.eval || "良好",
         })),
         workExperience: work.map((w) => ({
           id: w.id || null,
@@ -364,7 +363,8 @@ const ResumePage = () => {
           position: w.position || null,
           description: w.description || null,
           startDate: w.start_date || null,      // 修改为 snake_case
-          endDate: w.end_date || null,  
+          endDate: w.end_date || null, 
+          eval: w.eval || "良好", 
         })),
         skills: skills.map((skill) => ({
           skillName: skill || null,

@@ -341,7 +341,7 @@ const ResumePage = () => {
     }
   };
 
-  const handleRegenerate = useCallback(async () => {
+  const handleRegenerate = async () => {
     
     
     try {
@@ -426,11 +426,11 @@ const ResumePage = () => {
       alert("简历评估失败，请稍后重试！");
       setLoading(false); // 隐藏加载状态
     }
-  }, [dataLoaded, education, work, skills]);
+  };
 
   useEffect(() => {
     if (dataLoaded && !initialLoadComplete) {
-      handleRegenerate(); // 只有在数据加载完成后才调用
+      handleRegenerate();
       setInitialLoadComplete(true);
     }
   }, [dataLoaded, initialLoadComplete]);

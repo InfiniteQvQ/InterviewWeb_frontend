@@ -9,7 +9,8 @@ const IndividualPage = ({ onBack }) => {
   const DEFAULT_IMAGE_URL = `${API_BASE_URL}/images/emp.jpg`;
 
   // 从 localStorage 获取用户名
-  const username = JSON.parse(localStorage.getItem("username")) || "User";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const username = user?.username || "Guest";
   console.log(username);
   useEffect(() => {
     if (!username) {
@@ -20,7 +21,7 @@ const IndividualPage = ({ onBack }) => {
 
     // 页面加载时发送请求获取候选人详情
     const fetchCandidateDetails = async () => {
-      const username = JSON.parse(localStorage.getItem("username")) || "User";
+      
       try {
         const response = await axios.get(`${API_BASE_URL}/search/finduser?username=${username}`);
         setCandidateDetails(response.data);

@@ -156,12 +156,7 @@ const ResumePage = () => {
     }));
   };
 
-  useEffect(() => {
-    if (dataLoaded && !initialLoadComplete) {
-      handleRegenerate(); // 只有在数据加载完成后才调用
-      setInitialLoadComplete(true);
-    }
-  }, [dataLoaded, initialLoadComplete, handleRegenerate]);
+  
 
   // 处理教育经历变化
   const handleEduChange = (index, field, value) => {
@@ -434,11 +429,11 @@ const ResumePage = () => {
   }, [dataLoaded, education, work, skills]);
 
   useEffect(() => {
-    // 当 education/work/skills 更新后，且不为空时，执行评估
-    if (education.length && work.length && skills.length) {
-      handleRegenerate();
+    if (dataLoaded && !initialLoadComplete) {
+      handleRegenerate(); // 只有在数据加载完成后才调用
+      setInitialLoadComplete(true);
     }
-  }, [education, work, skills, handleRegenerate]);
+  }, [dataLoaded, initialLoadComplete, handleRegenerate]);
 
   if (loading) {
     return <div className="resume-page__loading">加载中...</div>;

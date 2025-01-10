@@ -32,7 +32,7 @@ const PersonalDashboard = () => {
           <div className="task-card">
             <div className="task-header">
                 <h3>简历精修</h3>
-                <img src="/jobs.jpg" alt="icon" className="task-icon" />
+                <img src="/Jobs.jpg" alt="icon" className="task-icon" />
             </div>
             <p>我们针对您的简历进行了评估，并且为您留下了建议来提升您的简历</p>
             <button onClick={handleNavigation} className="action-button">即刻提升</button>

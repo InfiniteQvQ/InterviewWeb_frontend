@@ -30,7 +30,7 @@ const PersonalNavbar = () => {
         </li>
         <li>
           <Link to="/personalresume">
-            <img src="/jobs.jpg" alt="Projects" className="navbar-icon" />
+            <img src="/Jobs.jpg" alt="Projects" className="navbar-icon" />
             <span>简历</span>
           </Link>
         </li>

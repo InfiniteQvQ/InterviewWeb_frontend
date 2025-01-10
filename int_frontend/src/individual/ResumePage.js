@@ -433,7 +433,7 @@ const ResumePage = () => {
       handleRegenerate(); // 只有在数据加载完成后才调用
       setInitialLoadComplete(true);
     }
-  }, [dataLoaded, initialLoadComplete, handleRegenerate]);
+  }, [dataLoaded, initialLoadComplete]);
 
   if (loading) {
     return <div className="resume-page__loading">加载中...</div>;

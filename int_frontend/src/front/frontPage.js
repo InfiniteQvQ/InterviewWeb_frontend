@@ -297,7 +297,7 @@ const FrontPage = () => {
           <h1 className="headline animate-fade-in">Freeca致力于成为</h1>
           <h1 className="headline animate-fade-in">AI驱动的下一代求职助手</h1>
           <p className="subline animate-slide-up">真正做到帮你
-            <span className="highlight highlight-faster"> 更智能</span> 
+            <span className="highlight highlight-faster"> 更智能</span>, 
             <span className="highlight highlight-faster"> 更快</span> 
             , <span className="highlight highlight-better"> 更好</span> 
             地找到属于你的机会

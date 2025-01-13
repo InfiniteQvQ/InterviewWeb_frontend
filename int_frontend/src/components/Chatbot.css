@@ -5,10 +5,10 @@
     position: fixed;
     bottom: 10vh;
     right: 2vw;
-    width: 30vw;
-    height: 70vh;
+    width: 40vw;
+    height: 75vh;
     background-color: #ffffff;
-    padding: 7px;
+    padding: 0.9rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -16,6 +16,7 @@
     justify-content: space-between;
     z-index: 1000;
     animation: fadeIn 0.3s ease-out;
+    font-family: sans-serif;
   }
   
   .chatbox-header {
@@ -69,24 +70,24 @@
     border-radius: 8px;
     max-width: 80%;
     word-wrap: break-word;
-    font-size: 13px;
+    font-size: 0.9rem;
     line-height: 1.5;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.3s ease-out;
   }
   
   .chat-message.user {
-    background-color: #eefbf9;
+    background-color: #128C7E;
     align-self: flex-end;
     text-align: right;
-    color: #374151;
+    color: white;
   }
   
   .chat-message.assistant {
-    background-color: #128C7E;
+    background-color: #ebfffa;
     align-self: flex-start;
     text-align: left;
-    color: white;
+    color: #222;
   }
   
   @keyframes fadeIn {
@@ -244,7 +245,10 @@
       visibility: hidden;
     }
 }
-
+.chat-message.assistant strong {
+  font-weight: 800;
+  font-size:1rem;
+}
 
 @keyframes fadeInTooltip {
     0% {

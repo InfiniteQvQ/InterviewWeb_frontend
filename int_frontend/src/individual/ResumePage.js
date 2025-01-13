@@ -299,6 +299,7 @@ const ResumePage = () => {
     setSaveError(null);
     try {
       const payload = {
+        username: username,
         profile: {
           ...profile,
           location: `${profile.location}`,
@@ -327,7 +328,7 @@ const ResumePage = () => {
       };
       console.log(payload);
 
-      await axios.put(`${API_BASE_URL}`, payload);
+      await axios.put(`${API_BASE_URL}/resume/update`, payload);
       setSaving(false);
       alert("保存成功！");
     } catch (err) {

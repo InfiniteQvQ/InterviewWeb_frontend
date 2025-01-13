@@ -12,6 +12,45 @@ const Chatbot = () => {
   const [isBouncing, setIsBouncing] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
+  // 缓冲区用于积累助理内容
+  const assistantBufferRef = useRef("");
+
+  // 辅助函数：解析并格式化消息内容
+  const parseMessage = (text) => {
+    if (!text) return null;
+
+    console.log("Parsing message:", text); // 添加日志
+
+    // 按行分割消息
+    const lines = text.split('\n');
+    const elements = [];
+    let key = 0;
+
+    lines.forEach((line) => {
+      // 正则表达式匹配模式：数字.**内容**：详细内容 或 -**内容**：详细内容
+      const regex = /^(\d+\.)?-?\*\*(.*?)\*\*：?(.*)/;
+      const match = regex.exec(line);
+      if (match) {
+        const [, number, boldContent, detail] = match;
+        console.log(`Matched line: ${number ? number : '-'}**${boldContent}**：${detail}`); // 添加日志
+        elements.push(
+          <div key={key++} style={{ fontSize: '0.9rem', marginBottom: '8px' }}>
+            <strong>{number ? number : '-'} {boldContent}</strong>：{detail}
+          </div>
+        );
+      } else {
+        console.log(`Unmatched line: ${line}`); // 添加日志
+        elements.push(
+          <div key={key++} style={{ fontSize: '0.9rem', marginBottom: '8px' }}>
+            {line}
+          </div>
+        );
+      }
+    });
+
+    return elements;
+  };
+
   const toggleChat = () => {
     if (!isOpen) {
       setHideIcon(true);
@@ -54,6 +93,7 @@ const Chatbot = () => {
   }, [isBouncing, isOpen]);
 
   const streamInitialMessage = () => {
+    assistantBufferRef.current = ""; // 重置缓冲区
     const initialMessageContent = "您好，我是智能职业规划&&职业发展咨询助手，请问我有什么可以帮您的吗？";
     const assistantMessage = { role: "assistant", content: "" };
     setMessages([assistantMessage]); // 初始化空消息
@@ -67,9 +107,9 @@ const Chatbot = () => {
         setMessages((prev) => {
           const lastMessage = prev[prev.length - 1];
           if (lastMessage?.role === "assistant") {
-            return [...prev.slice(0, -1), assistantMessage]; // 更新最后一条消息
+            return [...prev.slice(0, -1), { ...assistantMessage }]; // 更新最后一条消息
           } else {
-            return [...prev, assistantMessage]; // 添加新消息
+            return [...prev, { ...assistantMessage }]; // 添加新消息
           }
         });
         index++;
@@ -86,6 +126,8 @@ const Chatbot = () => {
     setMessages((prev) => [...prev, userMessage]);
     setCurrentMessage(""); // 清空输入框
     setStreaming(true);
+    
+    assistantBufferRef.current = ""; // 重置缓冲区
 
     const eventSource = new EventSource(
       `${API_BASE_URL}/job/chatbot?query=${encodeURIComponent(userMessage.content)}`
@@ -95,6 +137,7 @@ const Chatbot = () => {
 
     eventSource.onmessage = (event) => {
       const data = event.data;
+      console.log("Received data:", data); // 添加日志
       if (data === "[DONE]") {
         // 停止流式标志
         setStreaming(false);
@@ -102,26 +145,29 @@ const Chatbot = () => {
         eventSource.close();
       }
       else  {
-        assistantMessage.content += data; 
+        // 累积助理内容
+        assistantBufferRef.current += data;
+        assistantMessage.content = assistantBufferRef.current;
+
         setMessages((prev) => {
           const lastMessage = prev[prev.length - 1];
           if (lastMessage?.role === "assistant") {
-            return [...prev.slice(0, -1), assistantMessage ]; // 更新最后一条消息
+            return [...prev.slice(0, -1), { ...assistantMessage }]; // 更新最后一条消息
           } else {
-            return [...prev, assistantMessage ]; // 添加新消息
+            return [...prev, { ...assistantMessage }]; // 添加新消息
           }
         });
       }
     };
 
     eventSource.onerror = () => {
-        setStreaming(false);
-        eventSource.close();
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: "抱歉，我暂时无法连接到服务器，请稍后再试。" },
-        ]);
-      };
+      setStreaming(false);
+      eventSource.close();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "抱歉，我暂时无法连接到服务器，请稍后再试。" },
+      ]);
+    };
   };
 
   useEffect(() => {
@@ -129,7 +175,7 @@ const Chatbot = () => {
       chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
     }
   }, [messages]); 
-  
+
 
   return (
     <>
@@ -143,7 +189,7 @@ const Chatbot = () => {
             {/* 在 isBouncing 或 fadeOut 时显示提示框 */}
             {(isBouncing || fadeOut) && (
                 <div className={`chatbot-tooltip ${fadeOut ? "fade-out" : ""}`}>
-                    有什么问题都来问我！
+                    职业规划，求职面试的问题都可以问我哦！
                 </div>
             )}
             </div>
@@ -166,7 +212,11 @@ const Chatbot = () => {
                   msg.role === "user" ? "user" : "assistant"
                 }`}
               >
-                {msg.content}
+                {msg.role === "assistant" ? (
+                  parseMessage(msg.content)
+                ) : (
+                  msg.content
+                )}
               </div>
             ))}
           </div>

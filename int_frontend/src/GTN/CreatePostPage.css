@@ -1,0 +1,209 @@
+.create-post-title {
+    font-family: sans-serif;
+    font-size: 2rem;
+    font-weight:500;
+    margin-left:1vw;
+    margin-bottom: 20px;
+  }
+
+  .create-post-community {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 10px;
+    margin-left:1vw;
+  }
+
+  .create-post-container {
+    width: 95%;
+    margin-top:2vh;
+   
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  
+  
+  .community-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  /* 下拉选择框样式 */
+  .create-post-select {
+    width: 100%;
+    padding: 10px 12px; /* 内边距 */
+    font-size: 16px;
+    font-weight: normal;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* 圆角 */
+    background-color: #fff;
+    appearance: none; /* 隐藏原生箭头 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* 设置箭头位置 */
+    background-size: 12px; /* 设置箭头大小 */
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  /* 下拉选择框焦点样式 */
+  .create-post-select:focus {
+    border-color: #128C7E;
+    box-shadow: 0 0 4px #a8f3ea;
+    outline: none; /* 移除默认的 outline */
+  }
+  
+  /* 下拉框选项样式 */
+  .create-post-select option {
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    padding: 10px;
+  }
+  
+  .create-post-tabs {
+    display: flex;
+    
+    margin-bottom: 2vw;
+  }
+  
+  .create-post-tab {
+    flex: 1;
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    background-color: #f8f8f8;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .create-post-tab.active {
+    background-color: #fff;
+    font-weight: bold;
+    color: #222;
+    border-bottom: 2px solid #128C7E;
+  }
+  
+  .create-post-tab:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* 标题输入框 */
+  .create-post-title-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+  }
+  
+  .create-post-title-input input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+  }
+  
+  .create-post-title-input span {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  /* Body Editor */
+  .create-post-body {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+  }
+  
+  .create-post-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .create-post-toolbar button {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .create-post-textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    
+    font-size: 14px;
+    color: #333;
+    background-color: transparent;
+  }
+  
+  /* 底部按钮 */
+  .create-post-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top:2vh;
+  }
+  
+  .save-draft,
+  .post-button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .post-button {
+    background-color: #128C7E;
+    color: #fff;
+  }
+  
+  .post-button:hover {
+    background-color: #2ba698;
+  }
+
+/* 上传图片容器 */
+.create-post-upload {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+}
+
+.create-post-upload p {
+  font-size: 16px;
+  color: #aaa;
+  pointer-events: none;
+}
+
+.create-upload-input {
+  display: none;
+}
+
+.uploaded-preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}

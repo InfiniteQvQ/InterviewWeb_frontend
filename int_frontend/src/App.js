@@ -22,6 +22,10 @@ import IndividualPage from "./individual/IndividualPage";
 import PersonalNavbar from "./nav/PersonalNavbar";
 import ResumePage from "./individual/ResumePage";
 import IndividualInterview from "./individual/IndividualInterview";
+import GlobalNavbar from "./nav/GlobalNavbar";
+
+import CreatePostPage from "./GTN/CreatePostPage";
+// 如果你还有新创建的 Navbar / Page，也在这里引入
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,6 +52,8 @@ const App = () => {
   };
 
   const location = useLocation();
+
+  // 公司端的路径
   const companyPaths = [
     "/companies",
     "/search",
@@ -59,49 +65,73 @@ const App = () => {
     "/applicant",
   ];
 
+  // 个人端的路径
   const personalPaths = [
     "/personalprofile",
     "/personalresume", 
     "/dashboard",
     "/blog",
   ];
+  
+  // 判断是否在 GTN 路径
+  const showGTNbar = location.pathname === "/global-talent-network" || location.pathname === "/createpost";
 
-  const showPersonalNavbar = personalPaths.includes(location.pathname);
-  const showCompanyNavbar = companyPaths.includes(location.pathname) && !showPersonalNavbar;
-  const showChatbot = !showCompanyNavbar && !showPersonalNavbar;
+
+  // 判断是否在个人端路由
+  const showPersonalNavbar = personalPaths.includes(location.pathname) && !showGTNbar;
+
+  // 判断是否在公司端路由
+  const showCompanyNavbar = companyPaths.includes(location.pathname) && !showPersonalNavbar && !showGTNbar;
+
+  // 如果不是 GTN / 个人 / 公司，才显示默认 Navbar
+  const showDefaultNavbar = !showGTNbar && !showPersonalNavbar && !showCompanyNavbar;
+
+  // 如果不是公司、也不是个人、也不是 GTN，就显示 Chatbot
+  const showChatbot = !showCompanyNavbar && !showPersonalNavbar && !showGTNbar;
+
   return (
     <>
-   
-      {showPersonalNavbar ? (
+      {/* 根据不同条件渲染不同 Navbar */}
+      {showGTNbar ? (
+        <GlobalNavbar />
+      ) : showPersonalNavbar ? (
         <PersonalNavbar username={username} handleLogout={handleLogout} />
       ) : showCompanyNavbar ? (
         <CompanyNavbar />
-      ) : (
+      ) : showDefaultNavbar ? (
         <Navbar isLoggedIn={isLoggedIn} username={username} handleLogout={handleLogout} />
-      )}
+      ) : null}
 
-      
+      {/* 路由部分 */}
       <Routes>
         <Route path="/" element={<FrontPage />} />
         <Route path="/interview" element={<HomePage />} />
         <Route path="/candidates" element={<CandidatesPage />} />
         <Route path="/login" element={<LoginRegister onLogin={handleLogin} />} />
-        <Route path="/companies" element={<SearchPage />} /> 
+        <Route path="/companies" element={<SearchPage />} />
+        {/* 下面这个与上面的 showGTNbar 对应，一定要保证写的是 /global-talent-network */}
         <Route path="/global-talent-network" element={<GTNPage />} />
-        <Route path="/search" element={<SearchPage />} /> 
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/team" element={<CompanyTeam />} />
         <Route path="/spend" element={<CompanySpend />} />
         <Route path="/settings" element={<CompanySetting />} />
         <Route path="/applicant" element={<JobsApplicant />} />
         <Route path="/jd" element={<JDPage />} />
-        <Route path="/int" element={<VideoInterviewPage/>}/>
-        <Route path="/profile" element={<ProfilePage/>}/>
-        <Route path="/dashboard" element={<PersonalDashboard />}/>
-        <Route path="/personalprofile" element={<IndividualPage />}/>
-        <Route path="/personalresume" element={<ResumePage/>} />
-        <Route path="/blog" element={<IndividualInterview />}/>
+        <Route path="/int" element={<VideoInterviewPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/dashboard" element={<PersonalDashboard />} />
+        <Route path="/personalprofile" element={<IndividualPage />} />
+        <Route path="/personalresume" element={<ResumePage />} />
+        <Route path="/blog" element={<IndividualInterview />} />
+        <Route path="/createpost" element={<CreatePostPage />} />
+
+
+        {/* 如果还要添加其他新页面（比如你说的新的页面）也可以在这里加 */}
+        {/* <Route path="/newpage" element={<NewPage />} /> */}
       </Routes>
+
+      {/* Chatbot 显示条件 */}
       {showChatbot && <Chatbot />}
     </>
   );

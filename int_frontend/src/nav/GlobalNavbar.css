@@ -1,0 +1,93 @@
+.global-navbar {
+    width: 20vw;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    position: fixed;
+    background-color: #f9f9f9; /* 确保背景颜色存在 */
+  }
+  
+  .logo-separator {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc; /* 设置横线颜色和厚度 */
+    margin-top: 10px; 
+  }
+  
+  .global-navbar-section {
+    padding:1rem;
+    margin-bottom: 3vh;
+  }
+  
+  .global-navbar-icon {
+    width: 2vw;
+    height: 2vw;
+  }
+  
+  .global-navbar-section-title {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .global-navbar-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    margin: 0;
+    padding: 0; /* 移除内边距 */
+    width: 100%;
+  }
+  
+  .global-navbar-link {
+    margin-bottom: 15px;
+    width: 100%; /* 确保列表项占满整个行 */
+  }
+  
+  .global-navbar-link a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    color: #222;
+    gap: 1rem;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    transition: background-color 0.3s, transform 0.3s;
+    
+    width: 100%; /* 使链接占满整个行 */
+    box-sizing: border-box; /* 确保 padding 包含在宽度内 */
+  }
+  
+  .global-navbar-link a:hover {
+    background-color: #e6e6e6;
+    /* 圆角在悬停时仍然保持 */
+    border-radius: 8px;
+  }
+  
+  .global-navbar-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .global-navbar-logo-image {
+    height: 4vw;
+    width: 4vw;
+  }
+
+  .active-link {
+    background-color: #e6e6e6; 
+
+  }
+  
+  /* 如果需要，保持圆角 */
+  .active-link {
+    border-radius: 8px;
+  }
+  

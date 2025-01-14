@@ -1,0 +1,370 @@
+/* 页面容器，设置全屏和滚动 */
+.GTN-newpage-container {
+    width: 80vw;
+    height: 100vh;
+    margin-left: 20vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+/* 全局字体和颜色变量 */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #ecf0f1;
+    --accent-color: #128C7E;
+    --button-hover-color: #2e9a8d;
+    --border-color: #b1b1b1;
+    --text-color: #333;
+    --subtext-color: #888;
+    --background-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 应用全局字体 */
+body, .GTN-newpage-container {
+    font-family: var(--font-family);
+}
+
+/* 搜索栏样式 */
+.GTN-global-search-bar {
+    width: 95%;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    position: sticky; /* 固定在顶部 */
+    top: 0;
+    z-index: 10; /* 确保在滚动内容之上 */
+}
+
+.GTN-search-input {
+    width: 50%;
+    padding: 12px 20px;
+    border: 1px solid var(--border-color);
+    background-color: #f4f3f3;
+    border-radius: 25px;
+    font-size: 1rem;        
+    box-sizing: border-box;
+    margin-left:6vw;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.GTN-search-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+    outline: none;
+}
+
+.GTN-btn-post{
+    margin-left: 10vw;
+    padding: 8px 16px;
+    border:none;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    color:white;
+    background-color: #128C7E;
+}
+
+.GTN-btn-post:hover{
+    background-color: #2e9a8d;
+    cursor: pointer;
+}
+/* 主内容区域 */
+.GTN-main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden; /* 确保内部内容不溢出 */
+}
+
+/* 滚动区域 */
+.GTN-scrollable-content {
+    flex: 2; /* 占据主内容的两倍宽度 */
+    overflow-y: auto; /* 开启垂直滚动 */
+    padding: 25px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 右侧社区信息区域 */
+.GTN-community-info {
+    flex: 1; /* 占据主内容的宽度 */
+    padding: 25px 20px;
+    border-left: 1px solid var(--border-color);
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+/* 卡片样式 */
+.GTN-reddit-card {
+  
+    border-radius: 14px;
+    padding: 20px;
+    
+    cursor: pointer; 
+    
+}
+.GTN-divider {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 16px 0;
+  }
+  
+
+.GTN-reddit-card:hover {
+
+    background-color: #f8f8f8;
+}
+
+.GTN-reddit-title {
+    font-size: 14px;
+    color: var(--subtext-color);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.GTN-reddit-question {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.GTN-reddit-image-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.GTN-reddit-image {
+    width: 100%;
+    max-width: 40vw;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+
+
+/* 详细内容样式 */
+.GTN-detailed-content .GTN-back-button {
+    display: flex;
+    align-items: center;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 20px;
+    gap: 8px; /* 图标与文字间距 */
+}
+
+.GTN-detailed-content .GTN-back-button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+}
+
+.GTN-detailed-description {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* 评论区样式 */
+.GTN-comments-section {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.GTN-comment {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.GTN-comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.GTN-comment-content {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+/* 动作按钮样式 */
+/* 按钮区域样式 */
+.GTN-reddit-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  /* 通用按钮样式 */
+  .GTN-reddit-actions button {
+    display: flex; /* 使用 flexbox 布局 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background-color: #ebebeb;
+    color: #222;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+
+  
+  /* 鼠标悬停按钮 */
+  .GTN-reddit-actions button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .GTN-button-content {
+    display: flex; /* 内部布局 */
+    align-items: center; /* 图标和文字垂直居中 */
+    gap: 8px; /* 图标和文字之间的间距 */
+    }
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .GTN-newpage-container {
+        width: 80vw;
+        margin-left: 10vw;
+    }
+
+    .GTN-reddit-image {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .GTN-newpage-container {
+        width: 100vw;
+        margin-left: 0;
+    }
+
+    .GTN-global-search-bar {
+        padding: 10px 20px;
+    }
+
+    .GTN-main-content {
+        flex-direction: column;
+    }
+
+    .GTN-scrollable-content {
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    .GTN-community-info {
+        padding: 15px 20px;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .GTN-reddit-card {
+        padding: 15px;
+    }
+
+    .GTN-reddit-question {
+        font-size: 18px;
+    }
+
+    .GTN-share-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .GTN-upvote,
+    .GTN-downvote {
+        font-size: 18px;
+    }
+
+    /* 详细内容样式调整 */
+    .GTN-detailed-content .GTN-back-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .GTN-detailed-description {
+        font-size: 14px;
+    }
+
+    .GTN-comments-section {
+        padding: 10px;
+    }
+
+    .GTN-comment-content {
+        font-size: 12px;
+    }
+}
+
+
+.GTN-icon{
+    height:1vw;
+    width: 1vw;
+
+}
+
+.GTN-scrollable-content {
+    scrollbar-width: thin; /* Firefox: 使用较窄的滚动条 */
+    scrollbar-color: #ccc transparent; /* 滚动条颜色 */
+  }
+
+
+/* 广告容器 */
+.GTN-ad-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd; /* 边框 */
+    border-radius: 8px;
+  }
+  
+  /* 左侧 Logo 区域 */
+  .GTN-ad-logo {
+    flex: 0 0 4vw; /* 固定宽度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .GTN-ad-image {
+    width: 4vw; 
+    height: auto; 
+  }
+  
+  /* 右侧文本区域 */
+  .GTN-ad-text {
+    flex: 1; 
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column; /* 垂直排列文字 */
+  }
+  
+  .GTN-ad-line {
+    font-size: 1rem; /* 文字大小 */
+    font-weight: bold; /* 文字加粗 */
+    margin-left:2vw;    
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+  
+  .GTN-ad-line:last-child {
+    margin-bottom: 0; 
+  }
+  

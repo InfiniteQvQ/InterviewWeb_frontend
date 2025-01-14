@@ -99,7 +99,7 @@ const GTNPage = () => {
                   {/* 图片 */}
                   <div className="GTN-reddit-image-container">
                     <img
-                      src={`${API_BASE_URL}post.imagePath`}
+                      src={API_BASE_URL + post.imagePath}
                       alt={post.title}
                       className="GTN-reddit-image"
                       loading="lazy"

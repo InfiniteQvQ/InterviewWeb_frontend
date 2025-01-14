@@ -1,57 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./GlobalPage.css";
 
+import API_BASE_URL from "../config/apiConfig";
+
 const GTNPage = () => {
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [posts, setPosts] = useState([]);             // 用于存储后端返回的帖子列表
+  const [selectedCard, setSelectedCard] = useState(null); // 当前选中的帖子
   const navigate = useNavigate();
 
+  // 一进页面就请求后端的帖子列表
+  useEffect(() => {
+    // 根据你的后端实际地址调整
+    // 如果是Spring Boot默认端口8080，则类似：http://localhost:8080/api/posts
+    fetch(`${API_BASE_URL}/posts`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("后端返回的帖子数据:", data);
+        setPosts(data);
+      })
+      .catch((error) => {
+        console.error("获取帖子出错:", error);
+      });
+  }, []);
+
+  // 点击卡片时，设置当前选中的帖子
   const handleCardClick = (cardData) => {
     setSelectedCard(cardData);
   };
 
+  // “返回”按钮：清空选中的帖子，回到列表
   const handleBackClick = () => {
     setSelectedCard(null);
   };
 
+  // “创建”按钮：跳转到创建页面
   const handleCreateClick = () => {
     navigate("/createpost");
   };
-
-  // 示例数据
-  const redditCards = [
-    {
-      id: 1,
-      title: "r/cuteanimals • 2 days ago",
-      question: "What should I name her?",
-      imageSrc: "/cat.jpg",
-      alt: "Cute cat",
-      votes: "5.4K",
-      comments: "985",
-      detailedContent: "这是关于这只可爱猫咪的详细内容。",
-      commentsList: [
-        { author: "User1", content: "What a cute cat!" },
-        { author: "User2", content: "I would name her Luna." },
-        // 更多评论
-      ],
-    },
-    {
-      id: 2,
-      title: "r/aww • 1 day ago",
-      question: "This is my dog, isn't he cute?",
-      imageSrc: "/cat.jpg",
-      alt: "Cute dog",
-      votes: "2.3K",
-      comments: "456 comments",
-      detailedContent: "这是关于这只可爱狗狗的详细内容。",
-      commentsList: [
-        { author: "User3", content: "He is adorable!" },
-        { author: "User4", content: "So fluffy!" },
-        // 更多评论
-      ],
-    },
-    // 可以添加更多卡片数据
-  ];
 
   return (
     <div className="GTN-newpage-container">
@@ -62,7 +48,6 @@ const GTNPage = () => {
           placeholder="在人才网络当中搜索..."
           className="GTN-search-input"
         />
-
         <button className="GTN-btn-post" onClick={handleCreateClick}>
           + 创建
         </button>
@@ -70,81 +55,71 @@ const GTNPage = () => {
 
       {/* 主内容区域 */}
       <div className="GTN-main-content">
-        {/* 滚动内容区域 */}
+        {/* 左侧滚动内容区域 */}
         <div className="GTN-scrollable-content">
+          {/* 如果有选中的帖子，显示详情，否则显示帖子列表 */}
           {selectedCard ? (
             <div className="GTN-detailed-content">
               <button className="GTN-back-button" onClick={handleBackClick}>
                 ← 返回
               </button>
+              {/* 显示选中帖子的标题、内容、图片等 */}
               <h3 className="GTN-reddit-title">{selectedCard.title}</h3>
-              <h1 className="GTN-reddit-question">{selectedCard.question}</h1>
+              {/* 这里也可以用 selectedCard.username 来显示发帖人 */}
+              <h1 className="GTN-reddit-question">{selectedCard.content}</h1>
               <div className="GTN-reddit-image-container">
+                {/* 注意：要保证 selectedCard.imagePath 是可访问的 URL */}
                 <img
-                  src={selectedCard.imageSrc}
-                  alt={selectedCard.alt}
+                  src={selectedCard.imagePath}
+                  alt={selectedCard.title}
                   className="GTN-reddit-image"
                   loading="lazy"
                 />
               </div>
-              <p className="GTN-detailed-description">{selectedCard.detailedContent}</p>
-              <h3>评论区</h3>
-              <div className="GTN-comments-section">
-                {selectedCard.commentsList.map((comment, index) => (
-                  <div key={index} className="GTN-comment">
-                    <div className="GTN-comment-author">{comment.author}</div>
-                    <div className="GTN-comment-content">{comment.content}</div>
-                  </div>
-                ))}
-              </div>
+              {/* 更多字段展示 */}
+              <p className="GTN-detailed-description">
+                由 {selectedCard.username} 发布 / Likes: {selectedCard.likes}
+              </p>
+              <h3>评论区 (示例，需要你自己拓展)</h3>
+              {/* 评论数据可以在后端返回或单独请求，这里仅示例 */}
+              {/* <div className="GTN-comments-section">...</div> */}
             </div>
           ) : (
-            redditCards.map((card, index) => (
-              <React.Fragment key={card.id}>
+            // 如果没有选中帖子，则遍历 posts，显示列表
+            posts.map((post, index) => (
+              <React.Fragment key={post.postId}>
                 <div
                   className="GTN-reddit-card"
-                  onClick={() => handleCardClick(card)}
+                  onClick={() => handleCardClick(post)}
                 >
-                  <h3 className="GTN-reddit-title">{card.title}</h3>
-                  <h1 className="GTN-reddit-question">{card.question}</h1>
+                  {/* 帖子标题 */}
+                  <h3 className="GTN-reddit-title">{post.title}</h3>
+                  {/* 帖子内容（这里只展示一部分也行） */}
+                  <h1 className="GTN-reddit-question">{post.content}</h1>
+                  {/* 图片 */}
                   <div className="GTN-reddit-image-container">
                     <img
-                      src={card.imageSrc}
-                      alt={card.alt}
+                      src={`${API_BASE_URL}post.imagePath`}
+                      alt={post.title}
                       className="GTN-reddit-image"
                       loading="lazy"
                     />
                   </div>
+                  {/* 点赞/评论等操作区域 */}
                   <div className="GTN-reddit-actions">
-                    {/* 按钮区域 */}
-                    {/* 点赞 */}
                     <button className="GTN-like-button">
                       <div className="GTN-button-content">
                         <img src="/like.png" alt="like" className="GTN-icon" />
-                        <span>{card.votes}</span>
+                        <span>{post.likes}</span>
                       </div>
                     </button>
-                    {/* 评论 */}
-                    <button className="GTN-comments-button">
-                      <div className="GTN-button-content">
-                        <img src="/chat-box.png" alt="comments" className="GTN-icon" />
-                        <span>{card.comments}</span>
-                      </div>
-                    </button>
-                    {/* 分享 */}
-                    <button className="GTN-share-button">
-                      <div className="GTN-button-content">
-                        <img src="/share.png" alt="share" className="GTN-icon" />
-                        <span>分享</span>
-                      </div>
-                    </button>
+                    {/* 你可以在这里添加评论、分享等按钮 */}
                   </div>
                 </div>
-                {index < redditCards.length - 1 && <hr className="GTN-divider" />}
+                {index < posts.length - 1 && <hr className="GTN-divider" />}
               </React.Fragment>
             ))
           )}
-          {/* 可以继续添加更多卡片 */}
         </div>
 
         {/* 右侧社区信息区域 */}
@@ -158,7 +133,7 @@ const GTNPage = () => {
               <div className="GTN-ad-line">实现你的梦想！</div>
             </div>
           </div>
-          {/* 可以在这里添加更多社区相关的信息 */}
+          {/* 这里可扩展更多社区信息 */}
         </div>
       </div>
     </div>

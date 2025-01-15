@@ -63,10 +63,10 @@ const GTNPage = () => {
   
 
   // 点击卡片时，设置当前选中的帖子
-  const handleCardClick = (postId) => {
-    setSelectedCard(postId);
+  const handleCardClick = (post) => {
+    setSelectedCard(post);
     // 请求该帖子的评论
-    fetch(`${API_BASE_URL}/comments/post/${postId}`)
+    fetch(`${API_BASE_URL}/comments/post/${post.postId}`)
       .then((response) => response.json())
       .then((data) => {
         setComments(data);

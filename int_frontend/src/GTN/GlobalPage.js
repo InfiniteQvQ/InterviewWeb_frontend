@@ -136,6 +136,7 @@ const GTNPage = () => {
                 由 {selectedCard.username} 发布 | Likes: {selectedCard.likes}
               </p>
               {/* 评论数据可以在后端返回或单独请求，这里仅示例 */}
+              <hr className="GTN-divider" />
               <h3>评论区</h3>
 
               <div className="GTN-comment-input">

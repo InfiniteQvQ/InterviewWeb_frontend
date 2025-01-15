@@ -177,19 +177,18 @@ body, .GTN-newpage-container {
 
 /* 评论区样式 */
 .GTN-comments-section {
-    margin-top: 20px;
+    margin-top: 2vh;
     padding: 15px;
-    border-top: 1px solid var(--border-color);
-    background-color: #f9f9f9;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap:2vh;
 }
 
 .GTN-comment {
     margin-bottom: 15px;
     padding: 10px;
-    background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .GTN-comment-author {

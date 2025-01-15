@@ -428,7 +428,8 @@ div.GTN-community-info-div {
     margin-top:4vh;
     flex: 1 1; 
     padding: 25px 20px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #ddd;
+    border-radius: 8px;
     background-color: #fff;
     overflow-y: auto;
   }

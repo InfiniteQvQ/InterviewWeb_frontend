@@ -10,7 +10,6 @@ const GTNPage = () => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]); 
   const [newComment, setNewComment] = useState("");
-  const user = null;
 
   // 一进页面就请求后端的帖子列表
   useEffect(() => {
@@ -40,9 +39,10 @@ const GTNPage = () => {
       postId: postId,
       content: newComment,
     };
-  
+    console.log(user);
+    console.log(user.username);
     const username = JSON.parse(localStorage.getItem("user")).username;  // Assuming you have the username stored in localStorage
-  
+    
     fetch(`${API_BASE_URL}/comments?username=${username}`, {
       method: "POST",
       headers: {

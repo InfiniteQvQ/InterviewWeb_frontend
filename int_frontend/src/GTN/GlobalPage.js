@@ -10,7 +10,7 @@ const GTNPage = () => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]); 
   const [newComment, setNewComment] = useState("");
-
+  
   // 一进页面就请求后端的帖子列表
   useEffect(() => {
     // 根据你的后端实际地址调整
@@ -63,6 +63,24 @@ const GTNPage = () => {
       });
   };
   
+  const getTimeAgo = (createdAt) => {
+    const now = new Date();
+    const createdTime = new Date(createdAt);
+    const diffInSeconds = Math.floor((now - createdTime) / 1000);
+  
+    if (diffInSeconds < 60) {
+      return "刚刚";
+    } else if (diffInSeconds < 3600) {
+      const minutes = Math.floor(diffInSeconds / 60);
+      return `${minutes} 分钟前`;
+    } else if (diffInSeconds < 86400) {
+      const hours = Math.floor(diffInSeconds / 3600);
+      return `${hours} 小时前`;
+    } else {
+      const days = Math.floor(diffInSeconds / 86400);
+      return `${days} 天前`;
+    }
+  };
 
   // 点击卡片时，设置当前选中的帖子
   const handleCardClick = (post) => {
@@ -176,6 +194,12 @@ const GTNPage = () => {
                   className="GTN-reddit-card"
                   onClick={() => handleCardClick(post)}
                 >
+                  <div className="GTN-reddit-logo">
+                    <img className="GTN-reddit-logo-image" src="/working.png" alt="logo icon" />
+                    <span>{post.user.username}</span>
+                    <span>发布于 {getTimeAgo(new Date(new Date(post.createdAt).getTime() + 8 * 60 * 60 * 1000))}</span>
+                  </div>
+
                   {/* 帖子标题 */}
                   <h3 className="GTN-reddit-title">{post.title}</h3>
                   {/* 帖子内容（这里只展示一部分也行） */}

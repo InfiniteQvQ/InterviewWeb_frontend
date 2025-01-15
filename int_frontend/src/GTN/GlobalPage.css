@@ -119,17 +119,17 @@ body, .GTN-newpage-container {
 }
 
 .GTN-reddit-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #333;
     margin-bottom: 8px;
-    text-transform: uppercase;
+    font-weight: 400;
     letter-spacing: 0.5px;
 }
 
 .GTN-reddit-question {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #444;
     margin-bottom: 15px;
 }
 
@@ -404,3 +404,18 @@ body, .GTN-newpage-container {
     white-space: nowrap; /* Prevents text from wrapping */
 }
 
+.GTN-reddit-logo {
+    display: flex; /* 使用 flexbox 来排列元素 */
+    align-items: center; /* 垂直居中元素 */
+  }
+  
+  .GTN-reddit-logo-image {
+    height: 4vh;
+    width: 4vh;
+    margin-right: 10px; /* 在图标和文本之间添加间距 */
+  }
+  
+  .GTN-reddit-logo span {
+    margin-right: 10px; /* 在文本之间添加间距 */
+    font-size: 1rem; /* 设置字体大小 */
+  }

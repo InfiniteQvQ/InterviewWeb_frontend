@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden; 
+    
 }
 
 /* 全局字体和颜色变量 */
@@ -118,15 +119,15 @@ body, .GTN-newpage-container {
 }
 
 .GTN-reddit-title {
-    font-size: 14px;
-    color: var(--subtext-color);
+    font-size: 1.5rem;
+    color: #333;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .GTN-reddit-question {
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--text-color);
     margin-bottom: 15px;
@@ -374,6 +375,7 @@ body, .GTN-newpage-container {
     justify-content: flex-start; /* Align elements to the start */
 }
 
+
 .GTN-comment-textarea {
     width: 80%; /* Makes the input take up most of the space */
     border: 1px solid #888;
@@ -382,7 +384,15 @@ body, .GTN-newpage-container {
     padding: 8px 16px;
     margin-right: 10px; /* Optional: Add space between the input and button */
     flex-grow: 1; /* Makes the input grow to take up remaining space */
+    transition: border-color 0.3s; /* Adds smooth transition effect */
 }
+
+/* Focus state */
+.GTN-comment-textarea:focus {
+    border-color: #128C7E; /* Change border color to green when focused */
+    outline: none; /* Removes the default outline when focused */
+}
+
 
 .GTN-comment-submit {
     color: white;

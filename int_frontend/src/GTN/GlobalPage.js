@@ -177,7 +177,7 @@ const GTNPage = () => {
                   onClick={() => handleCardClick(post)}
                 >
                   {/* 帖子标题 */}
-                  <h3 className="GTN-reddit-questio">{post.title}</h3>
+                  <h3 className="GTN-reddit-title">{post.title}</h3>
                   {/* 帖子内容（这里只展示一部分也行） */}
                  
                   {/* 图片 */}

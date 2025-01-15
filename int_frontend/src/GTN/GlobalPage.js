@@ -10,7 +10,7 @@ const GTNPage = () => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]); 
   const [newComment, setNewComment] = useState("");
-  const [username, setUsername] = useState("");
+  const user = null;
 
   // 一进页面就请求后端的帖子列表
   useEffect(() => {
@@ -26,12 +26,6 @@ const GTNPage = () => {
         console.error("获取帖子出错:", error);
       });
 
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user && user.username) {
-        setUsername(user.username); // 从localStorage获取用户名
-      } else {
-        console.log("用户未登录或没有用户名");
-      }
   }, []);
 
 
@@ -41,15 +35,15 @@ const GTNPage = () => {
 
   const handleCommentSubmit = (postId) => {
     if (newComment.trim() === "") return; // 防止空评论提交
-
+  
     const commentData = {
       postId: postId,
       content: newComment,
-      user: { username: username || " anonymous" }, // 假设这里已经从用户登录信息中获取到用户名
     };
-
-    // 发送评论到后端
-    fetch(`${API_BASE_URL}/comments`, {
+  
+    const username = JSON.parse(localStorage.getItem("user")).username;  // Assuming you have the username stored in localStorage
+  
+    fetch(`${API_BASE_URL}/comments?username=${username}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,13 +52,15 @@ const GTNPage = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setComments((prevComments) => [...prevComments, data]); // 更新评论列表
-        setNewComment(""); // 清空输入框
+        console.log("评论已发布", data);
+        setComments((prevComments) => [...prevComments, data]);  // Optionally update the UI with the new comment
+        setNewComment("");
       })
       .catch((error) => {
-        console.error("提交评论出错:", error);
+        console.error("发布评论出错:", error);
       });
   };
+  
 
   // 点击卡片时，设置当前选中的帖子
   const handleCardClick = (postId) => {

@@ -420,3 +420,77 @@ body, .GTN-newpage-container {
     margin-right: 10px; /* 在文本之间添加间距 */
     font-size: 1rem; /* 设置字体大小 */
   }
+
+
+/*社区信息 */
+
+.GTN-community-info-div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+  }
+  
+  .GTN-community-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .GTN-community-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .GTN-community-logo img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .GTN-community-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .GTN-join-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .GTN-community-description {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .GTN-community-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #777;
+  }
+  
+  .GTN-community-rules {
+    margin-top: 20px;
+  }
+  
+  .GTN-community-rules h3 {
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .GTN-community-rules ul {
+    list-style-type: decimal;
+    margin-top: 10px;
+  }
+  
+  .GTN-community-rules li {
+    margin-bottom: 10px;
+    color: #555;
+  }

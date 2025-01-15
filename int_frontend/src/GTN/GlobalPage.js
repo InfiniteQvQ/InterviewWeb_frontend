@@ -252,6 +252,38 @@ const GTNPage = () => {
             </div>
           </div>
           {/* 这里可扩展更多社区信息 */}
+
+          {selectedCard && (
+            <div className="GTN-community-info-div">
+            <div className="GTN-community-header">
+              <div className="GTN-community-logo">
+                <img src="/fire.png" alt="Community Logo" />
+                <span className="GTN-community-title">public</span>
+              </div>
+              <button className="GTN-join-button">Join</button>
+            </div>
+        
+            <div className="GTN-community-description">
+              A community for digital artworks and related discussions. Do not post AI art, please.
+            </div>
+        
+            <div className="GTN-community-stats">
+              <div>71 Members</div>
+              <div>3 Online</div>
+              <div>3% Rank by size</div>
+            </div>
+        
+            <div className="GTN-community-rules">
+              <h3>Rules</h3>
+              <ul>
+                <li>Only content relevant to digital art</li>
+                <li>Absolutely no A.I. content of any kind</li>
+                <li>No NFTs, Collectibles, Adoptables, Auctionables, or other crypto nonsense</li>
+              </ul>
+            </div>
+          </div>
+          )}
+
         </div>
       </div>
     </div>

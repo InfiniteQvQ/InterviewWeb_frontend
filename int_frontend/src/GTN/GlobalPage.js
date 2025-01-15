@@ -8,6 +8,7 @@ const GTNPage = () => {
   const [posts, setPosts] = useState([]);             // 用于存储后端返回的帖子列表
   const [selectedCard, setSelectedCard] = useState(null); // 当前选中的帖子
   const navigate = useNavigate();
+  const [comments, setComments] = useState([]); 
 
   // 一进页面就请求后端的帖子列表
   useEffect(() => {
@@ -25,13 +26,23 @@ const GTNPage = () => {
   }, []);
 
   // 点击卡片时，设置当前选中的帖子
-  const handleCardClick = (cardData) => {
-    setSelectedCard(cardData);
+  const handleCardClick = (postId) => {
+    setSelectedCard(postId);
+    // 请求该帖子的评论
+    fetch(`${API_BASE_URL}/comments/post/${postId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setComments(data);
+      })
+      .catch((error) => {
+        console.error("获取评论出错:", error);
+      });
   };
 
   // “返回”按钮：清空选中的帖子，回到列表
   const handleBackClick = () => {
     setSelectedCard(null);
+    setComments([]);
   };
 
   // “创建”按钮：跳转到创建页面
@@ -78,11 +89,22 @@ const GTNPage = () => {
               </div>
               {/* 更多字段展示 */}
               <p className="GTN-detailed-description">
-                由 {selectedCard.username} 发布 / Likes: {selectedCard.likes}
+                由 {selectedCard.username} 发布 | Likes: {selectedCard.likes}
               </p>
-              <h3>评论区 (示例，需要你自己拓展)</h3>
               {/* 评论数据可以在后端返回或单独请求，这里仅示例 */}
-              {/* <div className="GTN-comments-section">...</div> */}
+              <h3>评论区</h3>
+              <div className="GTN-comments-section">
+                {comments.length > 0 ? (
+                  comments.map((comment) => (
+                    <div key={comment.id} className="GTN-comment">
+                      <div className="GTN-comment-author">{comment.user.username}</div>
+                      <div className="GTN-comment-content">{comment.content}</div>
+                    </div>
+                  ))
+                ) : (
+                  <p>暂无评论</p>
+                )}
+              </div>
             </div>
           ) : (
             // 如果没有选中帖子，则遍历 posts，显示列表
@@ -93,17 +115,21 @@ const GTNPage = () => {
                   onClick={() => handleCardClick(post)}
                 >
                   {/* 帖子标题 */}
-                  <h3 className="GTN-reddit-title">{post.title}</h3>
+                  <h3 className="GTN-reddit-questio">{post.title}</h3>
                   {/* 帖子内容（这里只展示一部分也行） */}
-                  <h1 className="GTN-reddit-question">{post.content}</h1>
+                 
                   {/* 图片 */}
                   <div className="GTN-reddit-image-container">
-                    <img
-                      src={API_BASE_URL + post.imagePath}
-                      alt={post.title}
-                      className="GTN-reddit-image"
-                      loading="lazy"
-                    />
+                  {post.imagePath ? (
+                      <img
+                        src={API_BASE_URL + post.imagePath}
+                        alt={post.title}
+                        className="GTN-reddit-image"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="GTN-no-image"></div> // 如果没有图片，可以显示 "暂无图片" 或者占位符
+                    )}
                   </div>
                   {/* 点赞/评论等操作区域 */}
                   <div className="GTN-reddit-actions">
@@ -114,6 +140,12 @@ const GTNPage = () => {
                       </div>
                     </button>
                     {/* 你可以在这里添加评论、分享等按钮 */}
+                    <button className="GTN-share-button">
+                      <div className="GTN-button-content">
+                        <img src="/share.png" alt="like" className="GTN-icon" />
+                        <span>分享</span>
+                      </div>
+                    </button>
                   </div>
                 </div>
                 {index < posts.length - 1 && <hr className="GTN-divider" />}

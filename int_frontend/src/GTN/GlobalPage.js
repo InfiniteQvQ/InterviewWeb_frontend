@@ -9,6 +9,8 @@ const GTNPage = () => {
   const [selectedCard, setSelectedCard] = useState(null); // 当前选中的帖子
   const navigate = useNavigate();
   const [comments, setComments] = useState([]); 
+  const [newComment, setNewComment] = useState("");
+  const [username, setUsername] = useState("");
 
   // 一进页面就请求后端的帖子列表
   useEffect(() => {
@@ -23,7 +25,46 @@ const GTNPage = () => {
       .catch((error) => {
         console.error("获取帖子出错:", error);
       });
+
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.username) {
+        setUsername(user.username); // 从localStorage获取用户名
+      } else {
+        console.log("用户未登录或没有用户名");
+      }
   }, []);
+
+
+  const handleCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  const handleCommentSubmit = (postId) => {
+    if (newComment.trim() === "") return; // 防止空评论提交
+
+    const commentData = {
+      postId: postId,
+      content: newComment,
+      user: { username: username || " anonymous" }, // 假设这里已经从用户登录信息中获取到用户名
+    };
+
+    // 发送评论到后端
+    fetch(`${API_BASE_URL}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(commentData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setComments((prevComments) => [...prevComments, data]); // 更新评论列表
+        setNewComment(""); // 清空输入框
+      })
+      .catch((error) => {
+        console.error("提交评论出错:", error);
+      });
+  };
 
   // 点击卡片时，设置当前选中的帖子
   const handleCardClick = (postId) => {
@@ -77,15 +118,20 @@ const GTNPage = () => {
               {/* 显示选中帖子的标题、内容、图片等 */}
               <h3 className="GTN-reddit-title">{selectedCard.title}</h3>
               {/* 这里也可以用 selectedCard.username 来显示发帖人 */}
-              <h1 className="GTN-reddit-question">{selectedCard.content}</h1>
+              
               <div className="GTN-reddit-image-container">
+                {selectedCard.imagePath ? (
+                      <img
+                        src={API_BASE_URL + selectedCard.imagePath}
+                        alt={selectedCard.title}
+                        className="GTN-reddit-image"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="GTN-no-image"></div> // 如果没有图片，可以显示 "暂无图片" 或者占位符
+                    )}
                 {/* 注意：要保证 selectedCard.imagePath 是可访问的 URL */}
-                <img
-                  src={selectedCard.imagePath}
-                  alt={selectedCard.title}
-                  className="GTN-reddit-image"
-                  loading="lazy"
-                />
+                <h1 className="GTN-reddit-question">{selectedCard.content}</h1>
               </div>
               {/* 更多字段展示 */}
               <p className="GTN-detailed-description">
@@ -93,6 +139,23 @@ const GTNPage = () => {
               </p>
               {/* 评论数据可以在后端返回或单独请求，这里仅示例 */}
               <h3>评论区</h3>
+
+              <div className="GTN-comment-input">
+                <input
+                  type="text"
+                  placeholder="输入评论..."
+                  value={newComment}
+                  onChange={handleCommentChange}
+                  className="GTN-comment-textarea"
+                />
+                <button
+                  className="GTN-comment-submit"
+                  onClick={() => handleCommentSubmit(selectedCard.postId)}
+                >
+                  发布
+                </button>
+              </div>
+
               <div className="GTN-comments-section">
                 {comments.length > 0 ? (
                   comments.map((comment) => (

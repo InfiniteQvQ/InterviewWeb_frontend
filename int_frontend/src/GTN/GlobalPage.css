@@ -367,4 +367,31 @@ body, .GTN-newpage-container {
   .GTN-ad-line:last-child {
     margin-bottom: 0; 
   }
-  
+
+
+  .GTN-comment-input {
+    display: flex; /* Use flexbox to arrange the elements in a row */
+    align-items: center; /* Vertically center the elements */
+    justify-content: flex-start; /* Align elements to the start */
+}
+
+.GTN-comment-textarea {
+    width: 80%; /* Makes the input take up most of the space */
+    border: 1px solid #888;
+    border-radius: 10px;
+    font-size: 1rem;
+    padding: 8px 16px;
+    margin-right: 10px; /* Optional: Add space between the input and button */
+    flex-grow: 1; /* Makes the input grow to take up remaining space */
+}
+
+.GTN-comment-submit {
+    color: white;
+    background-color: #128C7E;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+

@@ -39,8 +39,8 @@ const GTNPage = () => {
       postId: postId,
       content: newComment,
     };
-    console.log(user);
-    console.log(user.username);
+    console.log(JSON.parse(localStorage.getItem("user")));
+    console.log(JSON.parse(localStorage.getItem("user")).username);
     const username = JSON.parse(localStorage.getItem("user")).username;  // Assuming you have the username stored in localStorage
     
     fetch(`${API_BASE_URL}/comments?username=${username}`, {

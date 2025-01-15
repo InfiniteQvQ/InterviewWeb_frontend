@@ -260,25 +260,25 @@ const GTNPage = () => {
                 <img src="/fire.png" alt="Community Logo" />
                 <span className="GTN-community-title">public</span>
               </div>
-              <button className="GTN-join-button">Join</button>
+              <button className="GTN-join-button">加入</button>
             </div>
         
             <div className="GTN-community-description">
-              A community for digital artworks and related discussions. Do not post AI art, please.
+              一个公开最大的社区，发布工作机遇，进行想法讨论，汇集各个领域的人才！
             </div>
         
             <div className="GTN-community-stats">
-              <div>71 Members</div>
-              <div>3 Online</div>
-              <div>3% Rank by size</div>
+              <div>71 成员数</div>
+              <div>3 在线</div>
+              <div>3% 在所有社区当中</div>
             </div>
         
             <div className="GTN-community-rules">
-              <h3>Rules</h3>
+              <h3>规则</h3>
               <ul>
-                <li>Only content relevant to digital art</li>
-                <li>Absolutely no A.I. content of any kind</li>
-                <li>No NFTs, Collectibles, Adoptables, Auctionables, or other crypto nonsense</li>
+                <li>在这里有什么想法畅所欲言！</li>
+                <li>禁止任何形式的广告发布</li>
+                <li>禁止传播虚假信息</li>
               </ul>
             </div>
           </div>

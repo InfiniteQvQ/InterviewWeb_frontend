@@ -36,8 +36,10 @@ const GTNPage = () => {
     if (newComment.trim() === "") return; // 防止空评论提交
   
     const commentData = {
-      postId: postId,
-      content: newComment,
+      post: {
+        postId: postId
+      },
+      content: newComment
     };
     console.log(JSON.parse(localStorage.getItem("user")));
     console.log(JSON.parse(localStorage.getItem("user")).username);
